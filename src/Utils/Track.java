@@ -1,6 +1,8 @@
 package Utils;
 
-public class Track {
+import java.io.Serializable;
+
+public class Track implements Serializable {
     private String title;
     private String performer;
     private String album;
