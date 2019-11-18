@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositoryModel {
-    private List<Track> arrTrack;
-    private List<Genre> arrGenre;
+    private List<Track> arrTrack = new ArrayList<>();
+    private List<Genre> arrGenre = new ArrayList<>();
 
-    public RepositoryModel(List<Track> arrTrack, List<Genre> arrGenre) {
-        this.arrTrack = arrTrack;
-        this.arrGenre = arrGenre;
+    public List<Track> getArrTrack() {
+        return arrTrack;
+    }
+
+    public List<Genre> getArrGenre() {
+        return arrGenre;
     }
 
     public void addTrack(Track track) {
@@ -58,21 +61,5 @@ public class RepositoryModel {
                 break;
             }
         }
-    }
-
-    public ArrayList<Track> getArrTrack() {
-        return (ArrayList<Track>) arrTrack;
-    }
-
-    public ArrayList<Genre> getArrGenre() {
-        return (ArrayList<Genre>) arrGenre;
-    }
-
-    public void setArrTrack(List<Track> arrTrack) {
-        this.arrTrack = arrTrack;
-    }
-
-    public void setArrGenre(List<Genre> arrGenre) {
-        this.arrGenre = arrGenre;
     }
 }

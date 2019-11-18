@@ -21,8 +21,8 @@ public class Controller {
     }
 
     public void saveData() {
-        ArrayList<Track> tracks = model.getArrTrack();
-        ArrayList<Genre> genres = model.getArrGenre();
+        ArrayList<Track> tracks = (ArrayList<Track>)model.getArrTrack();
+        ArrayList<Genre> genres = (ArrayList<Genre>) model.getArrGenre();
         try {
             FileWriter fileWriter = new FileWriter("Data.txt");
             fileWriter.write(tracks.size());
