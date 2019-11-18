@@ -76,7 +76,7 @@ public class RepositoryModel {
         {
             if (track.getTitle().equals(TitleTrack))
             {
-                track.setPerformer(newAlbum);
+                track.setAlbum(newAlbum);
                 break;
             }
         }
