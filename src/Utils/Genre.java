@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Genre implements Serializable {
     private String title;
+
     public Genre(String title)
     {
         this.title = title;
