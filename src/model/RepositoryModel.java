@@ -15,6 +15,11 @@ public class RepositoryModel {
         arrGenre = new ArrayList<>();
     }
 
+    public RepositoryModel(List<Track> arrTrack, List<Genre> arrGenre) {
+        this.arrTrack = arrTrack;
+        this.arrGenre = arrGenre;
+    }
+
     public List<Track> getArrTrack() {
         return arrTrack;
     }
@@ -96,4 +101,6 @@ public class RepositoryModel {
             }
         }
     }
+
+
 }
