@@ -1,14 +1,19 @@
-package Model;
+package model;
 
-import Utils.Genre;
-import Utils.Track;
+import utils.Genre;
+import utils.Track;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepositoryModel {
-    private List<Track> arrTrack = new ArrayList<>();
-    private List<Genre> arrGenre = new ArrayList<>();
+    private List<Track> arrTrack;
+    private List<Genre> arrGenre;
+
+    public RepositoryModel(){
+        arrTrack = new ArrayList<>();
+        arrGenre = new ArrayList<>();
+    }
 
     public List<Track> getArrTrack() {
         return arrTrack;

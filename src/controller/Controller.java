@@ -1,20 +1,29 @@
-package Controller;
+package controller;
 
-import Model.RepositoryModel;
-import Utils.Genre;
-import Utils.Track;
+import model.RepositoryModel;
+import utils.Genre;
+import utils.Track;
+import javafx.fxml.Initializable;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
     private RepositoryModel model;
 
-    public Controller(RepositoryModel model) {
+   /* public controller(RepositoryModel model) {
         this.model = model;
     }
+
+    */
+   @Override
+   public void initialize(URL location, ResourceBundle resources) {
+       model = new RepositoryModel();
+   }
 
     public void loadData() {
 
@@ -61,5 +70,4 @@ public class Controller {
     public void updateModel() {
 
     }
-
 }
