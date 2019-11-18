@@ -18,25 +18,29 @@ public class RepositoryModel {
         arrGenre.add(genre);
     }
 
-    public void removeTrack(String title) {
-        for (Track track : arrTrack) {
-            if (track.getTitle().equals(title)) {
-                this.arrTrack.remove(track);
-                break;
+    public boolean removeTrack(String title)
+    {
+        for (Track track: arrTrack)
+        {
+            if (track.getTitle().equals(title))
+            {
+                return this.arrTrack.remove(track);
             }
         }
+        return false;
     }
-
-    public void removeGenre(String title) {
-        for (Genre genre : arrGenre) {
-            if (genre.getTitle().equals(title)) {
-                this.arrTrack.remove(genre);
-                break;
+    public boolean removeGenre(String title)
+    {
+        for (Genre genre: arrGenre)
+        {
+            if (genre.getTitle().equals(title))
+            {
+                return this.arrTrack.remove(genre);
             }
         }
+        return false;
 
     }
-
     public void setTitleTrack(String oldTitleTrack, String newTitleTrack) {
         for (Track track : arrTrack) {
             if (track.getTitle().equals(oldTitleTrack)) {
@@ -54,4 +58,29 @@ public class RepositoryModel {
             }
         }
     }
+    public void setPerformer(String TitleTrack, String newPerformer)
+    {
+        for (Track track: arrTrack)
+        {
+            if (track.getTitle().equals(TitleTrack))
+            {
+                track.setPerformer(newPerformer);
+                break;
+            }
+        }
+
+    }
+    public void setAlbum(String TitleTrack, String newAlbum)
+    {
+        for (Track track: arrTrack)
+        {
+            if (track.getTitle().equals(TitleTrack))
+            {
+                track.setPerformer(newAlbum);
+                break;
+            }
+        }
+    }
+
+
 }
