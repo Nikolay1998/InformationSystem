@@ -21,7 +21,7 @@ public class Main extends Application{
 
     public static void main(String[] args){
         launch(args);
-        ArrayList<Genre> genres = new ArrayList<>();
+        /*ArrayList<Genre> genres = new ArrayList<>();
         ArrayList<Track> tracks  = new ArrayList<>();
         genres.add(new Genre("Pop"));
         genres.add(new Genre("Rock"));
@@ -36,6 +36,7 @@ public class Main extends Application{
         controller.saveData();
         controller.loadData();
 
+         */
     }
 
     @Override
