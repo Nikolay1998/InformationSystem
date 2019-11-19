@@ -95,15 +95,15 @@ public class Controller implements Initializable {
     }
 
     public void addNewTrackAction(ActionEvent actionEvent) {
+        //достаём значения которые вбил пользователь:
         String title = trackLabelField.getText();
         String duration = durationField.getText();
         String performer = performerField.getText();
         String album = albumField.getText();
         String genre = genreField.getText();
 
-        TrackView newTrack = model.addTrack(title, performer, album, genre,Integer.valueOf(duration));
-        trackListTable.getItems().add(newTrack);
-        System.out.println(newTrack.toString());
+        TrackView newTrack = model.addTrack(title, performer, album, genre,Integer.valueOf(duration)); //Вызываем у адаптера метод создания нового трека
+        trackListTable.getItems().add(newTrack); //Команда для FX, чтобы добавить отображение нового трека на таблицу
     }
 
     public void deleteTrackAction(ActionEvent actionEvent) {
