@@ -7,15 +7,14 @@ public class Track implements Serializable {
     private String performer;
     private String album;
     private Genre genre;
+    private Integer duration;
 
-    public Track() {
-    }
-
-    public Track(String title, String performer, String album, Genre genre) {
+    public Track(String title, String performer, String album, Genre genre, Integer duration) {
         this.title = title;
         this.performer = performer;
         this.album = album;
         this.genre = genre;
+        this.duration = duration;
     }
 
     public Genre getGenre() {
@@ -57,5 +56,20 @@ public class Track implements Serializable {
                 && getPerformer().equals(((Track) object).getPerformer())
                 && getAlbum().equals(((Track) object).getAlbum())
                 && getGenre().equals(((Track) object).getGenre());
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Track{" +
+                "title='" + title + '\'' +
+                ", performer='" + performer + '\'' +
+                ", album='" + album + '\'' +
+                ", genre=" + genre +
+                ", duration=" + duration +
+                '}';
     }
 }
