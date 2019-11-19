@@ -1,11 +1,17 @@
 package view;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import model.RepositoryModel;
+import utils.Genre;
+import utils.Track;
+
+import java.util.ArrayList;
 
 public class Main extends Application{
 
@@ -15,7 +21,7 @@ public class Main extends Application{
 
     public static void main(String[] args){
         launch(args);
-        /*ArrayList<Genre> genres = new ArrayList<>();
+        ArrayList<Genre> genres = new ArrayList<>();
         ArrayList<Track> tracks  = new ArrayList<>();
         genres.add(new Genre("Pop"));
         genres.add(new Genre("Rock"));
@@ -25,12 +31,10 @@ public class Main extends Application{
 
         RepositoryModel repositoryModel = new RepositoryModel(tracks,genres);
 
-        controller controller = new controller(repositoryModel);
+        Controller controller = new Controller();
+        controller.setModel(repositoryModel);
         controller.saveData();
-         */
-
-
-
+        controller.loadData();
 
     }
 
