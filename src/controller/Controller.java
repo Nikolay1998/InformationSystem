@@ -40,11 +40,11 @@ public class Controller implements Initializable {
 
     private Adapter model;
 
-   @Override
-   public void initialize(URL location, ResourceBundle resources) {
-       model = new Adapter(new RepositoryModel());
-       trackListTable.getItems().addAll(model.getAllTracks());
-   }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        model = new Adapter(new RepositoryModel());
+        trackListTable.getItems().addAll(model.getAllTracks());
+    }
 
     public void loadData() {
 
@@ -102,7 +102,7 @@ public class Controller implements Initializable {
         String album = albumField.getText();
         String genre = genreField.getText();
 
-        TrackView newTrack = model.addTrack(title, performer, album, genre,Integer.valueOf(duration)); //Вызываем у адаптера метод создания нового трека
+        TrackView newTrack = model.addTrack(title, performer, album, genre, Integer.valueOf(duration)); //Вызываем у адаптера метод создания нового трека
         trackListTable.getItems().add(newTrack); //Команда для FX, чтобы добавить отображение нового трека на таблицу
     }
 

@@ -27,6 +27,6 @@ public class Adapter {
 
     public TrackView addTrack(String title, String performer, String album, String genre, Integer duration) {
         //адаптер вызвыает создание нового трека у RepositoryModel, оборачивает его в TrackView и возвращает контроллеру TrackView
-        return new TrackView(repositoryModel.addTrack(title, performer, genre, album, duration));
+        return new TrackView(repositoryModel.addTrack(title, performer, album, genre, duration));
     }
 }

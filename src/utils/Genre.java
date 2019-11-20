@@ -21,4 +21,9 @@ public class Genre implements Serializable {
     public boolean equals(Object object) {
         return title.equals(object);
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

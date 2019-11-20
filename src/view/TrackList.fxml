@@ -94,11 +94,8 @@
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="albumColumn" prefWidth="127.0" text="Альбом">
-                            <cellFactory>
-                                <TextFieldTableCell fx:factory="forTableColumn" />
-                            </cellFactory>
                             <cellValueFactory>
-                                <PropertyValueFactory property="trackAlbum" />
+                                <PropertyValueFactory property="album" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="genreColumn" prefWidth="134.0" text="Жанр">
