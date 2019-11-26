@@ -2,7 +2,7 @@ package utils;
 
 import java.io.Serializable;
 
-public class Genre implements Serializable {
+public class Genre implements Serializable{
     private String title;
 
     public Genre(String title)
@@ -26,4 +26,6 @@ public class Genre implements Serializable {
     public String toString() {
         return title;
     }
+
+
 }

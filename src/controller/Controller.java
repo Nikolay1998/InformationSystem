@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.RepositoryModel;
+import model.TrackModel;
 import utils.Track;
 import javafx.fxml.Initializable;
 import view.TrackView;
@@ -42,7 +42,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model = new Adapter(new RepositoryModel());
+        model = new Adapter(new TrackModel());
         trackListTable.getItems().addAll(model.getAllTracks());
     }
 
@@ -106,7 +106,8 @@ public class Controller implements Initializable {
         trackListTable.getItems().add(newTrack); //Команда для FX, чтобы добавить отображение нового трека на таблицу
     }
 
-    public void deleteTrackAction(ActionEvent actionEvent) {
+    public void deleteTrackAction(ActionEvent actionEvent)
+    {
     }
 
     public void updateTrackName(TableColumn.CellEditEvent<TrackView, String> trackViewStringCellEditEvent) {

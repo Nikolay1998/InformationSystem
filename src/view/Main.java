@@ -1,17 +1,11 @@
 package view;
 
-import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import model.RepositoryModel;
-import utils.Genre;
-import utils.Track;
-
-import java.util.ArrayList;
 
 public class Main extends Application{
 

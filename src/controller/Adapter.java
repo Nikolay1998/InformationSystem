@@ -1,21 +1,20 @@
 package controller;
 
-import model.RepositoryModel;
-import utils.Track;
+import model.TrackModel;
 import view.TrackView;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Adapter {
-    RepositoryModel repositoryModel;
+    TrackModel trackModel;
 
-    Adapter(RepositoryModel repositoryModel){
-        this.repositoryModel = repositoryModel;
+    Adapter(TrackModel trackModel){
+        this.trackModel = trackModel;
     }
 
     List<TrackView> getAllTracks() {
-        return repositoryModel
+        return trackModel
                 .getAllTracks()
                 .stream()
                 .map(TrackView::new)
@@ -27,6 +26,7 @@ public class Adapter {
 
     public TrackView addTrack(String title, String performer, String album, String genre, Integer duration) {
         //адаптер вызвыает создание нового трека у RepositoryModel, оборачивает его в TrackView и возвращает контроллеру TrackView
-        return new TrackView(repositoryModel.addTrack(title, performer, album, genre, duration));
+        return new TrackView(trackModel.addTrack(title, performer, album, genre, duration));
     }
+
 }

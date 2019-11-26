@@ -49,13 +49,17 @@ public class Track implements Serializable {
         this.title = title;
     }
 
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
     public boolean equals(Object object) {
         if (object == null) return false;
         if (!(object instanceof Track)) return false;
-        return getTitle().equals(((Track) object).getTitle())
-                && getPerformer().equals(((Track) object).getPerformer())
+        return (getTitle().equals( ((Track) object).getTitle())
+                && getPerformer().equals(((Track) object).getPerformer()))
                 && getAlbum().equals(((Track) object).getAlbum())
-                && getGenre().equals(((Track) object).getGenre());
+                && getDuration().equals(((Track) object).getDuration());
     }
 
     public Integer getDuration() {
@@ -72,4 +76,6 @@ public class Track implements Serializable {
                 ", duration=" + duration +
                 '}';
     }
+
+
 }
