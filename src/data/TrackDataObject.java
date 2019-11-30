@@ -1,15 +1,15 @@
-package utils;
+package data;
 
 import java.io.Serializable;
 
-public class Track implements Serializable {
+public class TrackDataObject implements Serializable {
     private String title;
     private String performer;
     private String album;
     private Genre genre;
     private Integer duration;
 
-    public Track(String title, String performer, String album, Genre genre, Integer duration) {
+    public TrackDataObject(String title, String performer, String album, Genre genre, Integer duration) {
         this.title = title;
         this.performer = performer;
         this.album = album;
@@ -55,11 +55,11 @@ public class Track implements Serializable {
 
     public boolean equals(Object object) {
         if (object == null) return false;
-        if (!(object instanceof Track)) return false;
-        return (getTitle().equals( ((Track) object).getTitle())
-                && getPerformer().equals(((Track) object).getPerformer()))
-                && getAlbum().equals(((Track) object).getAlbum())
-                && getDuration().equals(((Track) object).getDuration());
+        if (!(object instanceof TrackDataObject)) return false;
+        return (getTitle().equals( ((TrackDataObject) object).getTitle())
+                && getPerformer().equals(((TrackDataObject) object).getPerformer()))
+                && getAlbum().equals(((TrackDataObject) object).getAlbum())
+                && getDuration().equals(((TrackDataObject) object).getDuration());
     }
 
     public Integer getDuration() {
@@ -68,7 +68,7 @@ public class Track implements Serializable {
 
     @Override
     public String toString() {
-        return "Track{" +
+        return "TrackDataObject{" +
                 "title='" + title + '\'' +
                 ", performer='" + performer + '\'' +
                 ", album='" + album + '\'' +

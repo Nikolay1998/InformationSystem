@@ -16,16 +16,16 @@ public class Main extends Application{
     public static void main(String[] args){
         launch(args);
         /*ArrayList<Genre> genres = new ArrayList<>();
-        ArrayList<Track> tracks  = new ArrayList<>();
+        ArrayList<TrackDataObject> tracks  = new ArrayList<>();
         genres.add(new Genre("Pop"));
         genres.add(new Genre("Rock"));
 
-        tracks.add(new Track("Когда?","источник","Single", genres.get(ROCK_ID)));
-        tracks.add(new Track("Seventeen","Peach Pit","Sweat FA", genres.get(ROCK_ID)));
+        tracks.add(new TrackDataObject("Когда?","источник","Single", genres.get(ROCK_ID)));
+        tracks.add(new TrackDataObject("Seventeen","Peach Pit","Sweat FA", genres.get(ROCK_ID)));
 
         RepositoryModel repositoryModel = new RepositoryModel(tracks,genres);
 
-        Controller controller = new Controller();
+        TrackViewController controller = new TrackViewController();
         controller.setModel(repositoryModel);
         controller.saveData();
         controller.loadData();

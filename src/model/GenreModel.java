@@ -1,16 +1,15 @@
 package model;
 
-import utils.Genre;
-import utils.Track;
+import data.Genre;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JenreModel implements Serializable
+public class GenreModel implements Serializable
 {
     private List<Genre> arrGenre;
-    public JenreModel()
+    public GenreModel()
     {
         arrGenre = new ArrayList<>();
     }

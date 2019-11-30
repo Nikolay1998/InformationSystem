@@ -1,37 +1,37 @@
 package view;
 
+import data.TrackDataObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import utils.Genre;
-import utils.Track;
+import view.DTO.TrackDTO;
 
 public class TrackView {
     //private final String id;
-    private final StringProperty trackTitle;
+    private final StringProperty title;
     private final StringProperty performer;
     private final StringProperty album;
-    private final SimpleIntegerProperty duration;
     private final StringProperty genre;
+    private final SimpleIntegerProperty duration;
 
-    public TrackView(String trackLabel, String performer, String genre, String album, Integer duration) {
-        this.trackTitle = new SimpleStringProperty(trackLabel);
+    public TrackView(String trackLabel, String performer, String album, String genre, Integer duration) {
+        this.title = new SimpleStringProperty(trackLabel);
         this.duration = new SimpleIntegerProperty(duration);
         this.performer = new SimpleStringProperty(performer);
         this.album = new SimpleStringProperty(album);
         this.genre = new SimpleStringProperty(genre);
     }
 
-    public TrackView(Track track){
-        this(track.getTitle(), track.getPerformer(), track.getGenre().toString(), track.getAlbum(), track.getDuration());
+    public TrackView(TrackDTO trackDTO){
+        this(trackDTO.getTitle(), trackDTO.getPerformer(), trackDTO.getGenre().toString(), trackDTO.getAlbum(), trackDTO.getDuration());
     }
 
-    public String getTrackTitle() {
-        return trackTitle.get();
+    public String getTitle() {
+        return title.get();
     }
 
-    public StringProperty trackTitleProperty() {
-        return trackTitle;
+    public StringProperty titleProperty() {
+        return title;
     }
 
     public String getPerformer() {
@@ -69,7 +69,7 @@ public class TrackView {
     @Override
     public String toString() {
         return "TrackView{" +
-                "trackTitle=" + trackTitle +
+                "title=" + title +
                 ", performer=" + performer +
                 ", album=" + album +
                 ", duration=" + duration +
