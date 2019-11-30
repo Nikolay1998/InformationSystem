@@ -19,15 +19,18 @@ public class Controller {
 
     public void addTrack(TrackDTO trackDTO){
         TrackDataObject trackDO = Adapter.toTrackDataObject(trackDTO);
-        trackModel.addTrack(trackDO.getTitle(), trackDO.getPerformer(),trackDO.getAlbum(),trackDO.getGenre().getTitle(), trackDO.getDuration());
+        trackModel.addTrack(trackDO.getId(), trackDO.getTitle(), trackDO.getPerformer(),trackDO.getAlbum(),trackDO.getGenre().getTitle(), trackDO.getDuration());
     }
 
     public List<TrackDTO> getAllTracks(){
         return Adapter.toTrackDTOList(trackModel.getAllTracks());
     }
 
-    public TrackDTO getTrack(Integer id){
+    public TrackDTO getTrack(String id){
         return Adapter.toTrackDTO(trackModel.getTrack(id));
     }
 
+    public void removeTrack(String id) {
+        trackModel.removeTrack(id);
+    }
 }

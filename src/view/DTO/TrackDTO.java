@@ -4,13 +4,15 @@ import data.Genre;
 import data.TrackDataObject;
 
 public class TrackDTO {
+    private String id;
     private String title;
     private String performer;
     private String album;
     private Genre genre;
     private Integer duration;
 
-    public TrackDTO(String title, String performer, String album, Genre genre, Integer duration) {
+    public TrackDTO(String id, String title, String performer, String album, Genre genre, Integer duration) {
+        this.id = id;
         this.title = title;
         this.performer = performer;
         this.album = album;
@@ -19,11 +21,16 @@ public class TrackDTO {
     }
 
     public TrackDTO(TrackDataObject trackDO) {
+        this.id = trackDO.getId();
         this.title = trackDO.getTitle();
         this.performer = trackDO.getPerformer();
         this.album = trackDO.getAlbum();
         this.genre = trackDO.getGenre();
         this.duration = trackDO.getDuration();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {

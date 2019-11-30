@@ -7,14 +7,15 @@ import javafx.beans.property.StringProperty;
 import view.DTO.TrackDTO;
 
 public class TrackView {
-    //private final String id;
+    private final String id;
     private final StringProperty title;
     private final StringProperty performer;
     private final StringProperty album;
     private final StringProperty genre;
     private final SimpleIntegerProperty duration;
 
-    public TrackView(String trackLabel, String performer, String album, String genre, Integer duration) {
+    public TrackView(String id, String trackLabel, String performer, String album, String genre, Integer duration) {
+        this.id = id;
         this.title = new SimpleStringProperty(trackLabel);
         this.duration = new SimpleIntegerProperty(duration);
         this.performer = new SimpleStringProperty(performer);
@@ -22,8 +23,12 @@ public class TrackView {
         this.genre = new SimpleStringProperty(genre);
     }
 
-    public TrackView(TrackDTO trackDTO){
-        this(trackDTO.getTitle(), trackDTO.getPerformer(), trackDTO.getGenre().toString(), trackDTO.getAlbum(), trackDTO.getDuration());
+    public TrackView(TrackDTO trackDTO) {
+        this(trackDTO.getId(), trackDTO.getTitle(), trackDTO.getPerformer(), trackDTO.getGenre().toString(), trackDTO.getAlbum(), trackDTO.getDuration());
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {

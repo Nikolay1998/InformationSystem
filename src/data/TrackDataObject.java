@@ -3,18 +3,24 @@ package data;
 import java.io.Serializable;
 
 public class TrackDataObject implements Serializable {
+    private String id;
     private String title;
     private String performer;
     private String album;
     private Genre genre;
     private Integer duration;
 
-    public TrackDataObject(String title, String performer, String album, Genre genre, Integer duration) {
+    public TrackDataObject(String id, String title, String performer, String album, Genre genre, Integer duration) {
+        this.id = id;
         this.title = title;
         this.performer = performer;
         this.album = album;
         this.genre = genre;
         this.duration = duration;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Genre getGenre() {

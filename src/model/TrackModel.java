@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observer;
+import java.util.UUID;
 
 public class TrackModel implements Serializable, Observable {
     private List<TrackDataObject> arrTrackDataObject;
@@ -17,8 +18,8 @@ public class TrackModel implements Serializable, Observable {
 
     public TrackModel() {
         arrTrackDataObject = new LinkedList<>();
-        arrTrackDataObject.add(new TrackDataObject("A", "A", "A", new Genre("A"), 3));
-        arrTrackDataObject.add(new TrackDataObject("Б", "Б", "3 псни", new Genre("P"), 3));
+        arrTrackDataObject.add(new TrackDataObject(UUID.randomUUID().toString(),"A", "A", "A", new Genre("A"), 3));
+        arrTrackDataObject.add(new TrackDataObject(UUID.randomUUID().toString(),"Б", "Б", "3 псни", new Genre("P"), 3));
     }
 
     public List<TrackDataObject> getAllTracks() {
@@ -26,19 +27,20 @@ public class TrackModel implements Serializable, Observable {
     }
 
 
-    public TrackDataObject addTrack(String title, String performer, String album, String genreTitle, Integer duration) {
-        TrackDataObject newTrackDataObject = new TrackDataObject(title, performer, album, new Genre(genreTitle), duration);
+    public TrackDataObject addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
+        id = UUID.randomUUID().toString();
+        TrackDataObject newTrackDataObject = new TrackDataObject(id ,title, performer, album, new Genre(genreTitle), duration);
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.equals(newTrackDataObject))
                 throw new IllegalArgumentException("This trackDataObject already exists");
         }
         arrTrackDataObject.add(newTrackDataObject);
         for(EventListener listener: listeners){
-            listener.update(Event.ADDTRACK, arrTrackDataObject.indexOf(newTrackDataObject));
+            listener.update(Event.ADDTRACK, newTrackDataObject.getId());
         }
         return newTrackDataObject;
     }
-    public TrackDataObject getTrack(String title)
+    /*public TrackDataObject getTrack(String title)
     {
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.getTitle().equals(title)) {
@@ -48,16 +50,26 @@ public class TrackModel implements Serializable, Observable {
         return null;
     }
 
-    public TrackDataObject getTrack(int index)
+     */
+
+    public TrackDataObject getTrack(String id)
     {
-        return arrTrackDataObject.get(index);
+        for (TrackDataObject trackDataObject : arrTrackDataObject) {
+            if (trackDataObject.getId().equals(id)) {
+                return trackDataObject;
+            }
+        }
+        return null;
     }
 
 
-    public void removeTrack(String title) {
+    public void removeTrack(String id) {
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
-            if (trackDataObject.getTitle().equals(title)) {
+            if (trackDataObject.getId().equals(id)) {
                 this.arrTrackDataObject.remove(trackDataObject);
+                for(EventListener listener: listeners){
+                    listener.update(Event.DELETETRACK, id);
+                }
                 break;
             }
         }

@@ -14,6 +14,7 @@ import view.DTO.Adapter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class TrackViewController implements Initializable, EventListener {
 
@@ -110,24 +111,38 @@ public class TrackViewController implements Initializable, EventListener {
         String album = albumField.getText();
         String genre = genreField.getText();
 
-        TrackView newTrack = new TrackView(title, performer, album, genre, Integer.valueOf(duration)); //adapter.addTrack(title, performer, album, genre, Integer.valueOf(duration)); //Вызываем у адаптера метод создания нового трека
+        TrackView newTrack = new TrackView(null, title, performer, album, genre, Integer.valueOf(duration)); //adapter.addTrack(title, performer, album, genre, Integer.valueOf(duration)); //Вызываем у адаптера метод создания нового трека
         controller.addTrack(Adapter.toTrackDTO(newTrack));
 
-        //trackListTable.getItems().add(newTrack); //Команда для FX, чтобы добавить отображение нового трека на таблицу
     }
 
     public void deleteTrackAction(ActionEvent actionEvent) {
+        int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
+        TrackView trackView = trackListTable.getItems().get(selectedIndex);
+        controller.removeTrack(trackView.getId());
     }
 
     public void updateTrackName(TableColumn.CellEditEvent<TrackView, String> trackViewStringCellEditEvent) {
     }
 
     @Override
-    public void update(Event event, Integer id) {
+    public void update(Event event, String id) {
         switch (event){
+            case DELETETRACK:
+                System.out.println("DeleteTrack " + id);
+                for(TrackView trackView : trackListTable.getItems()){
+                    if(trackView.getId().equals(id)){
+                        trackListTable.getItems().remove(trackView);
+                    }
+                }
+                //int index = trackListTable.getItems().
+                //trackListTable.getItems().remove();
+                break;
             case ADDTRACK:
                 System.out.println("AddNewTrack");
                 trackListTable.getItems().add(Adapter.toTrackView(controller.getTrack(id)));
+                break;
+
         }
     }
 }
