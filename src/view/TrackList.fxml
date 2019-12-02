@@ -75,7 +75,7 @@
                         <Label text="У вас пока еще нет ни одного трека в списке" />
                     </placeholder>
                     <columns>
-                        <TableColumn fx:id="trackColumn" onEditCommit="#updateTrackName" prefWidth="127.0" text="Трек">
+                        <TableColumn fx:id="trackColumn" onEditCommit="#updateTrackTitle" prefWidth="127.0" text="Трек">
                             <cellFactory>
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>

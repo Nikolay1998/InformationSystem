@@ -77,4 +77,24 @@ public class TrackView {
                 ", genre=" + genre +
                 '}';
     }
+
+    public void setTitle(String title) {
+        this.title.set(title);
+    }
+
+    public void setPerformer(String performer) {
+        this.performer.set(performer);
+    }
+
+    public void setAlbum(String album) {
+        this.album.set(album);
+    }
+
+    public void setGenre(String genre) {
+        this.genre.set(genre);
+    }
+
+    public void setDuration(int duration) {
+        this.duration.set(duration);
+    }
 }

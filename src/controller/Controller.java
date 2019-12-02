@@ -5,6 +5,7 @@ import model.GenreModel;
 import model.TrackModel;
 import view.DTO.Adapter;
 import view.DTO.TrackDTO;
+import view.TrackView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,5 +33,10 @@ public class Controller {
 
     public void removeTrack(String id) {
         trackModel.removeTrack(id);
+    }
+
+    public void updateTrackTitle(TrackDTO trackDTO, String newTitle) {
+        TrackDataObject track = Adapter.toTrackDataObject(trackDTO);
+        trackModel.setTitleTrack(track.getId(), newTitle);
     }
 }

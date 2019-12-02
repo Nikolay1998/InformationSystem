@@ -14,7 +14,6 @@ import view.DTO.Adapter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class TrackViewController implements Initializable, EventListener {
 
@@ -83,10 +82,6 @@ public class TrackViewController implements Initializable, EventListener {
 
  */
 
-    public void addTrack(TrackDataObject trackDataObject) {
-
-    }
-
     public void deleteTrack(TrackDataObject trackDataObject) {
 
     }
@@ -122,7 +117,11 @@ public class TrackViewController implements Initializable, EventListener {
         controller.removeTrack(trackView.getId());
     }
 
-    public void updateTrackName(TableColumn.CellEditEvent<TrackView, String> trackViewStringCellEditEvent) {
+    public void updateTrackTitle(TableColumn.CellEditEvent<TrackView, String> trackViewStringCellEditEvent) {
+        System.out.println("update");
+        TrackView trackView = trackViewStringCellEditEvent.getRowValue();
+        controller.updateTrackTitle(Adapter.toTrackDTO(trackView), trackViewStringCellEditEvent.getNewValue());
+        System.out.println(trackView.getTitle());
     }
 
     @Override
@@ -142,6 +141,15 @@ public class TrackViewController implements Initializable, EventListener {
                 trackListTable.getItems().add(Adapter.toTrackView(controller.getTrack(id)));
                 break;
 
+            case UPDATETRACKTITLE:
+                System.out.println("UpdateTrackTitle");
+                for(TrackView trackView : trackListTable.getItems()){
+                    if(trackView.getId().equals(id)){
+                        trackView.setTitle(controller.getTrack(id).getTitle());
+                        break;
+                    }
+                }
+                break;
         }
     }
 }

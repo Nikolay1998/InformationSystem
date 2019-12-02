@@ -18,8 +18,8 @@ public class TrackModel implements Serializable, Observable {
 
     public TrackModel() {
         arrTrackDataObject = new LinkedList<>();
-        arrTrackDataObject.add(new TrackDataObject(UUID.randomUUID().toString(),"A", "A", "A", new Genre("A"), 3));
-        arrTrackDataObject.add(new TrackDataObject(UUID.randomUUID().toString(),"Б", "Б", "3 псни", new Genre("P"), 3));
+        arrTrackDataObject.add(new TrackDataObject(UUID.randomUUID().toString(), "A", "A", "A", new Genre("A"), 3));
+        arrTrackDataObject.add(new TrackDataObject(UUID.randomUUID().toString(), "Б", "Б", "3 псни", new Genre("P"), 3));
     }
 
     public List<TrackDataObject> getAllTracks() {
@@ -29,13 +29,13 @@ public class TrackModel implements Serializable, Observable {
 
     public TrackDataObject addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
         id = UUID.randomUUID().toString();
-        TrackDataObject newTrackDataObject = new TrackDataObject(id ,title, performer, album, new Genre(genreTitle), duration);
+        TrackDataObject newTrackDataObject = new TrackDataObject(id, title, performer, album, new Genre(genreTitle), duration);
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.equals(newTrackDataObject))
                 throw new IllegalArgumentException("This trackDataObject already exists");
         }
         arrTrackDataObject.add(newTrackDataObject);
-        for(EventListener listener: listeners){
+        for (EventListener listener : listeners) {
             listener.update(Event.ADDTRACK, newTrackDataObject.getId());
         }
         return newTrackDataObject;
@@ -52,8 +52,7 @@ public class TrackModel implements Serializable, Observable {
 
      */
 
-    public TrackDataObject getTrack(String id)
-    {
+    public TrackDataObject getTrack(String id) {
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.getId().equals(id)) {
                 return trackDataObject;
@@ -67,7 +66,7 @@ public class TrackModel implements Serializable, Observable {
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.getId().equals(id)) {
                 this.arrTrackDataObject.remove(trackDataObject);
-                for(EventListener listener: listeners){
+                for (EventListener listener : listeners) {
                     listener.update(Event.DELETETRACK, id);
                 }
                 break;
@@ -75,14 +74,14 @@ public class TrackModel implements Serializable, Observable {
         }
     }
 
-    public void setTitleTrack(String oldTitleTrack, String newTitleTrack) {
-        for (TrackDataObject trackDataObject : arrTrackDataObject) {
-            if (trackDataObject.getTitle().equals(oldTitleTrack)) {
-                trackDataObject.setTitle(newTitleTrack);
-                break;
-            }
+    public void setTitleTrack(String id, String newTitleTrack) {
+        getTrack(id).setTitle(newTitleTrack);
+        System.out.println(getTrack(id).getTitle());
+        for (EventListener listener : listeners) {
+            listener.update(Event.UPDATETRACKTITLE, id);
         }
     }
+
     public void setPerformerTrack(String titleTrack, String newPerformerTrack) {
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.getTitle().equals(titleTrack)) {
@@ -91,6 +90,7 @@ public class TrackModel implements Serializable, Observable {
             }
         }
     }
+
     public void setAlbumTrack(String titleTrack, String newAlbumTrack) {
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.getTitle().equals(titleTrack)) {
@@ -99,6 +99,7 @@ public class TrackModel implements Serializable, Observable {
             }
         }
     }
+
     public void setDurationTrack(String titleTrack, Integer newDurationTrack) {
         for (TrackDataObject trackDataObject : arrTrackDataObject) {
             if (trackDataObject.getTitle().equals(titleTrack)) {
