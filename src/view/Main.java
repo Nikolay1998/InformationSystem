@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 
-    public final static int POP_ID = 0;
-    public final static int ROCK_ID = 1;
+    //public final static int POP_ID = 0;
+    //public final static int ROCK_ID = 1;
 
 
     public static void main(String[] args){

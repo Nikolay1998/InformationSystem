@@ -23,10 +23,6 @@ public class TrackView {
         this.genre = new SimpleStringProperty(genre);
     }
 
-    public TrackView(TrackDTO trackDTO) {
-        this(trackDTO.getId(), trackDTO.getTitle(), trackDTO.getPerformer(), trackDTO.getGenre().toString(), trackDTO.getAlbum(), trackDTO.getDuration());
-    }
-
     public String getId() {
         return id;
     }

@@ -133,10 +133,9 @@ public class TrackViewController implements Initializable, EventListener {
                 for(TrackView trackView : trackListTable.getItems()){
                     if(trackView.getId().equals(id)){
                         trackListTable.getItems().remove(trackView);
+                        break;
                     }
                 }
-                //int index = trackListTable.getItems().
-                //trackListTable.getItems().remove();
                 break;
             case ADDTRACK:
                 System.out.println("AddNewTrack");

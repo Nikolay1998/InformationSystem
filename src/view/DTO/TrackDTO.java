@@ -20,15 +20,6 @@ public class TrackDTO {
         this.duration = duration;
     }
 
-    public TrackDTO(TrackDataObject trackDO) {
-        this.id = trackDO.getId();
-        this.title = trackDO.getTitle();
-        this.performer = trackDO.getPerformer();
-        this.album = trackDO.getAlbum();
-        this.genre = trackDO.getGenre();
-        this.duration = trackDO.getDuration();
-    }
-
     public String getId() {
         return id;
     }

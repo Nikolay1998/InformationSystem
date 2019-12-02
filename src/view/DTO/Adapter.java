@@ -30,13 +30,13 @@ public class Adapter {
 
     public static List<TrackDTO> toTrackDTOList(List<TrackDataObject> trackDOList){
         return   trackDOList.stream()
-                .map(TrackDTO::new)
+                .map(Adapter::toTrackDTO)
                 .collect(Collectors.toList());
     }
 
     public static List<TrackView> toTrackViewList(List<TrackDTO> trackDTOList){
         return   trackDTOList.stream()
-                .map(TrackView::new)
+                .map(Adapter::toTrackView)
                 .collect(Collectors.toList());
     }
 
