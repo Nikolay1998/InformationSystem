@@ -2,15 +2,17 @@ package view;
 
 import controller.Controller;
 import data.TrackDataObject;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 import model.Event;
 import model.TrackModel;
 import javafx.fxml.Initializable;
-import view.DTO.Adapter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,17 +20,17 @@ import java.util.ResourceBundle;
 public class TrackViewController implements Initializable, EventListener {
 
     @FXML
-    private TableView<TrackView> trackListTable;
+    private TableView<TrackDataObject> trackListTable;
     @FXML
-    private TableColumn<TrackView, String> trackColumn;
+    private TableColumn<TrackDataObject, String> trackColumn;
     @FXML
-    private TableColumn<TrackView, Integer> durationColumn;
+    private TableColumn<TrackDataObject, Integer> durationColumn;
     @FXML
-    private TableColumn<TrackView, String> authorColumn;
+    private TableColumn<TrackDataObject, String> authorColumn;
     @FXML
-    private TableColumn<TrackView, String> genreColumn;
+    private TableColumn<TrackDataObject, String> genreColumn;
     @FXML
-    private TableColumn<TrackView, String> albumColumn;
+    private TableColumn<TrackDataObject, String> albumColumn;
     @FXML
     private TextField trackLabelField;
     @FXML
@@ -42,17 +44,81 @@ public class TrackViewController implements Initializable, EventListener {
 
     private Controller controller;
 
-    //private Adapter adapter;
+    private TrackModel model;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TrackModel trackModel = new TrackModel();
-        //adapter = new Adapter(trackModel);
-        controller = new Controller(trackModel);
-        trackModel.subscribe(this);
-        trackListTable.getItems().addAll(Adapter.toTrackViewList(controller.getAllTracks()));
-        //trackListTable.getItems().addAll(adapter.getAllTracks());
+       trackColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
+                if (param.getValue() != null) {
+                    return new SimpleStringProperty(param.getValue().getTitle());
+                }
+                else {
+                    return new SimpleStringProperty("<no name>");
+                }
+            }
+        });
+
+       /*durationColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<TrackDataObject, Integer> param) {
+                return new SimpleIntegerProperty(param.getValue().getDuration());
+            }
+        });
+
+        */
+        authorColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
+                if (param.getValue() != null) {
+                    return new SimpleStringProperty(param.getValue().getPerformer());
+                }
+                else {
+                    return new SimpleStringProperty("<no author>");
+                }
+            }
+        });
+
+        genreColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
+                if (param.getValue() != null) {
+                    return new SimpleStringProperty(param.getValue().getGenre().getTitle());
+                }
+                else {
+                    return new SimpleStringProperty("<no genre>");
+                }
+            }
+        });
+
+        albumColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
+                if (param.getValue() != null) {
+                    return new SimpleStringProperty(param.getValue().getAlbum());
+                }
+                else {
+                    return new SimpleStringProperty("<no album>");
+                }
+            }
+        });
+
+
+
+
     }
+
+    public void setModel(TrackModel model){
+        this.model = model;
+        model.subscribe(this);
+    }
+
+    public void setController(Controller controller){
+        this.controller = controller;
+        trackListTable.getItems().addAll(model.getAllTracks());
+    }
+
 
     public void loadData() {
 
@@ -82,11 +148,11 @@ public class TrackViewController implements Initializable, EventListener {
 
  */
 
-    public void deleteTrack(TrackDataObject trackDataObject) {
+    public void deleteTrack(TrackDataObject track) {
 
     }
 
-    public void changeTrack(TrackDataObject trackDataObject) {
+    public void changeTrack(TrackDataObject track) {
 
     }
 
@@ -101,55 +167,33 @@ public class TrackViewController implements Initializable, EventListener {
     public void addNewTrackAction(ActionEvent actionEvent) {
         //достаём значения которые вбил пользователь:
         String title = trackLabelField.getText();
-        String duration = durationField.getText();
         String performer = performerField.getText();
         String album = albumField.getText();
         String genre = genreField.getText();
+        String duration = durationField.getText();
 
-        TrackView newTrack = new TrackView(null, title, performer, album, genre, Integer.valueOf(duration)); //adapter.addTrack(title, performer, album, genre, Integer.valueOf(duration)); //Вызываем у адаптера метод создания нового трека
-        controller.addTrack(Adapter.toTrackDTO(newTrack));
+        controller.addTrack(null, title, performer, album, genre, Integer.valueOf(duration));
 
     }
 
     public void deleteTrackAction(ActionEvent actionEvent) {
         int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
-        TrackView trackView = trackListTable.getItems().get(selectedIndex);
-        controller.removeTrack(trackView.getId());
+        TrackDataObject track = trackListTable.getItems().get(selectedIndex);
+        controller.removeTrack(track.getId());
     }
 
-    public void updateTrackTitle(TableColumn.CellEditEvent<TrackView, String> trackViewStringCellEditEvent) {
+    public void updateTrackTitle(TableColumn.CellEditEvent<TrackDataObject, String> trackStringCellEditEvent) {
         System.out.println("update");
-        TrackView trackView = trackViewStringCellEditEvent.getRowValue();
-        controller.updateTrackTitle(Adapter.toTrackDTO(trackView), trackViewStringCellEditEvent.getNewValue());
-        System.out.println(trackView.getTitle());
+        TrackDataObject track = trackStringCellEditEvent.getRowValue();
+        controller.updateTrackTitle(track, trackStringCellEditEvent.getNewValue());
+        System.out.println(track.getTitle());
     }
+
+
 
     @Override
     public void update(Event event, String id) {
-        switch (event){
-            case DELETETRACK:
-                System.out.println("DeleteTrack " + id);
-                for(TrackView trackView : trackListTable.getItems()){
-                    if(trackView.getId().equals(id)){
-                        trackListTable.getItems().remove(trackView);
-                        break;
-                    }
-                }
-                break;
-            case ADDTRACK:
-                System.out.println("AddNewTrack");
-                trackListTable.getItems().add(Adapter.toTrackView(controller.getTrack(id)));
-                break;
-
-            case UPDATETRACKTITLE:
-                System.out.println("UpdateTrackTitle");
-                for(TrackView trackView : trackListTable.getItems()){
-                    if(trackView.getId().equals(id)){
-                        trackView.setTitle(controller.getTrack(id).getTitle());
-                        break;
-                    }
-                }
-                break;
-        }
+        trackListTable.getItems().removeAll(trackListTable.getItems());
+        trackListTable.getItems().addAll(model.getAllTracks());
     }
 }

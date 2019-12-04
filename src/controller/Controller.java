@@ -3,12 +3,6 @@ package controller;
 import data.TrackDataObject;
 import model.GenreModel;
 import model.TrackModel;
-import view.DTO.Adapter;
-import view.DTO.TrackDTO;
-import view.TrackView;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Controller {
     private TrackModel trackModel;
@@ -18,25 +12,17 @@ public class Controller {
         this.trackModel = trackModel;
     }
 
-    public void addTrack(TrackDTO trackDTO){
-        TrackDataObject trackDO = Adapter.toTrackDataObject(trackDTO);
-        trackModel.addTrack(trackDO.getId(), trackDO.getTitle(), trackDO.getPerformer(),trackDO.getAlbum(),trackDO.getGenre().getTitle(), trackDO.getDuration());
-    }
-
-    public List<TrackDTO> getAllTracks(){
-        return Adapter.toTrackDTOList(trackModel.getAllTracks());
-    }
-
-    public TrackDTO getTrack(String id){
-        return Adapter.toTrackDTO(trackModel.getTrack(id));
+    public void addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration){
+        trackModel.addTrack(id, title, performer, album, genreTitle, duration);
     }
 
     public void removeTrack(String id) {
         trackModel.removeTrack(id);
     }
 
-    public void updateTrackTitle(TrackDTO trackDTO, String newTitle) {
-        TrackDataObject track = Adapter.toTrackDataObject(trackDTO);
+    public void updateTrackTitle(TrackDataObject track, String newTitle) {
         trackModel.setTitleTrack(track.getId(), newTitle);
     }
+
+
 }

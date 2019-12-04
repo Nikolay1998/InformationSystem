@@ -1,11 +1,12 @@
-package view;
-
+import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import model.TrackModel;
+import view.TrackViewController;
 
 public class Main extends Application{
 
@@ -35,11 +36,19 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("TrackList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("view/TrackList.fxml").openStream());
+        TrackViewController trackViewController = (TrackViewController) fxmlLoader.getController();
+        TrackModel trackModel = new TrackModel();
+        trackViewController.setModel(trackModel);
+        trackViewController.setController(new Controller(trackModel));
         primaryStage.setTitle("Music System");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         TextFieldTableCell.forTableColumn();
+
+
+
     }
 }
 

@@ -79,9 +79,8 @@
                             <cellFactory>
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
-                            <cellValueFactory>
-                                <PropertyValueFactory property="title" />
-                            </cellValueFactory>
+
+
                         </TableColumn>
                         <TableColumn fx:id="durationColumn" prefWidth="116.0" text="Длительность">
                             <cellValueFactory>
@@ -89,19 +88,13 @@
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="authorColumn" prefWidth="238.0" text="Автор">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="performer" />
-                            </cellValueFactory>
+
                         </TableColumn>
                         <TableColumn fx:id="albumColumn" prefWidth="127.0" text="Альбом">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="album" />
-                            </cellValueFactory>
+
                         </TableColumn>
                         <TableColumn fx:id="genreColumn" prefWidth="134.0" text="Жанр">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="genre" />
-                            </cellValueFactory>
+
                         </TableColumn>
                     </columns>
                 </TableView>
