@@ -11,13 +11,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.TextFieldTableCell?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.cell.TextFieldTableCell?>
 
-<VBox prefHeight="400.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TrackViewController">
+<VBox prefHeight="456.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TrackViewController">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
+        <MenuBar prefHeight="19.0" prefWidth="820.0" VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -27,7 +27,7 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Close" />
                         <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAsAction" text="Save As…" />
                         <MenuItem mnemonicParsing="false" text="Revert" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Preferences…" />
@@ -56,9 +56,9 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="449.0" prefWidth="820.0" VBox.vgrow="ALWAYS">
             <children>
-                <ButtonBar layoutY="331.0" prefHeight="40.0" prefWidth="820.0">
+                <ButtonBar layoutY="379.0" prefHeight="40.0" prefWidth="820.0">
                     <buttons>
                         <TextField fx:id="trackLabelField" promptText="Имя трека" />
                         <TextField fx:id="durationField" promptText="Длительность" />
@@ -69,7 +69,7 @@
                         <Button mnemonicParsing="false" onAction="#deleteTrackAction" text="Удалить" />
                     </buttons>
                 </ButtonBar>
-                <TableView fx:id="trackListTable" editable="true" layoutX="7.0" layoutY="14.0" prefHeight="308.0" prefWidth="800.0">
+                <TableView fx:id="trackListTable" editable="true" layoutX="7.0" layoutY="58.0" prefHeight="320.0" prefWidth="800.0">
 
                     <placeholder>
                         <Label text="У вас пока еще нет ни одного трека в списке" />
@@ -93,11 +93,13 @@
                         <TableColumn fx:id="albumColumn" prefWidth="127.0" text="Альбом">
 
                         </TableColumn>
-                        <TableColumn fx:id="genreColumn" prefWidth="134.0" text="Жанр">
+                        <TableColumn fx:id="genreColumn" prefWidth="79.20001220703125" text="Жанр">
 
                         </TableColumn>
                     </columns>
                 </TableView>
+            <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="182.0" promptText="Введите название трека" />
+            <Button fx:id="searchButton" layoutX="207.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchAction" text="Поиск" />
             </children>
         </AnchorPane>
     </children>

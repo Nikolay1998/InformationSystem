@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import data.TrackDataObject;
+import data.TrackDataObjects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,7 +16,10 @@ import model.TrackModel;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class TrackViewController implements Initializable, EventListener {
 
@@ -41,6 +45,8 @@ public class TrackViewController implements Initializable, EventListener {
     private TextField genreField;
     @FXML
     private TextField albumField;
+    @FXML
+    private TextField searchField;
 
     private Controller controller;
 
@@ -48,13 +54,12 @@ public class TrackViewController implements Initializable, EventListener {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       trackColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
+        trackColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
                 if (param.getValue() != null) {
                     return new SimpleStringProperty(param.getValue().getTitle());
-                }
-                else {
+                } else {
                     return new SimpleStringProperty("<no name>");
                 }
             }
@@ -73,8 +78,7 @@ public class TrackViewController implements Initializable, EventListener {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
                 if (param.getValue() != null) {
                     return new SimpleStringProperty(param.getValue().getPerformer());
-                }
-                else {
+                } else {
                     return new SimpleStringProperty("<no author>");
                 }
             }
@@ -85,8 +89,7 @@ public class TrackViewController implements Initializable, EventListener {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
                 if (param.getValue() != null) {
                     return new SimpleStringProperty(param.getValue().getGenre().getTitle());
-                }
-                else {
+                } else {
                     return new SimpleStringProperty("<no genre>");
                 }
             }
@@ -97,24 +100,21 @@ public class TrackViewController implements Initializable, EventListener {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<TrackDataObject, String> param) {
                 if (param.getValue() != null) {
                     return new SimpleStringProperty(param.getValue().getAlbum());
-                }
-                else {
+                } else {
                     return new SimpleStringProperty("<no album>");
                 }
             }
         });
 
 
-
-
     }
 
-    public void setModel(TrackModel model){
+    public void setModel(TrackModel model) {
         this.model = model;
         model.subscribe(this);
     }
 
-    public void setController(Controller controller){
+    public void setController(Controller controller) {
         this.controller = controller;
         trackListTable.getItems().addAll(model.getAllTracks());
     }
@@ -123,6 +123,11 @@ public class TrackViewController implements Initializable, EventListener {
     public void loadData() {
 
     }
+
+    public void saveAsAction() {
+        System.out.println("save!");
+    }
+
 /*
     public void saveData() {
         ArrayList<TrackDataObject> tracks = (ArrayList<TrackDataObject>)adapter.getAllTracks();
@@ -190,10 +195,35 @@ public class TrackViewController implements Initializable, EventListener {
     }
 
 
-
     @Override
     public void update(Event event, String id) {
         trackListTable.getItems().removeAll(trackListTable.getItems());
         trackListTable.getItems().addAll(model.getAllTracks());
+    }
+
+
+    public void searchAction(ActionEvent actionEvent) {
+        List<TrackDataObject> filteredValue = new ArrayList<>();
+        String searchString = searchField.getText();
+        Predicate<TrackDataObject> trackDataObjectPredicate;
+
+        if (searchString.endsWith("*") && searchString.startsWith("*")) {
+            trackDataObjectPredicate = TrackDataObjects.containsPredicate(searchString.substring(1, searchString.length() - 1));
+        } else if (searchString.endsWith("*")) {
+            trackDataObjectPredicate = TrackDataObjects.startWithPredicate(searchString.substring(0, searchString.length() - 1));
+        } else if (searchString.startsWith("*")) {
+            trackDataObjectPredicate = TrackDataObjects.endsWithPredicate(searchString.substring(1, searchString.length()));
+        } else {
+            trackDataObjectPredicate = TrackDataObjects.fullEqual(searchString);
+        }
+
+
+        for (TrackDataObject track : model.getAllTracks()) {
+            if (trackDataObjectPredicate.test(track)) {
+                filteredValue.add(track);
+            }
+        }
+        trackListTable.getItems().removeAll(trackListTable.getItems());
+        trackListTable.getItems().addAll(filteredValue);
     }
 }

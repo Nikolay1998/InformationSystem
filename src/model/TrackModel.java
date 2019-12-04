@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-public class TrackModel implements Serializable, Observable {
+public class TrackModel implements Observable {
     private List<TrackDataObject> arrTrack;
     private List<EventListener> listeners = new LinkedList<>();
 
