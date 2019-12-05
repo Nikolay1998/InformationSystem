@@ -5,6 +5,7 @@ import model.GenreModel;
 import model.TrackModel;
 
 import java.io.*;
+import java.util.List;
 
 public class Controller {
     private TrackModel trackModel;
@@ -33,4 +34,10 @@ public class Controller {
     }
 
 
+    public void loadData(File file) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            List<TrackDataObject> list = SaveLoadService.getInstance().load(in);
+            trackModel.addToArrTrack(list);
+        }
+    }
 }

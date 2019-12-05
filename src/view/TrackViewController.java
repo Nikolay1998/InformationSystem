@@ -56,6 +56,8 @@ public class TrackViewController implements Initializable, EventListener {
 
     private TrackModel model;
 
+    private File currentFile;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         trackColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
@@ -129,12 +131,36 @@ public class TrackViewController implements Initializable, EventListener {
     }
 
     public void saveAsAction() {
-        System.out.println("save!");
         FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showSaveDialog(new Stage());
+        currentFile = fileChooser.showSaveDialog(new Stage());
         try {
-            controller.saveData(file);
+            controller.saveData(currentFile);
         } catch (IOException e) {
+            e.printStackTrace(); //toDo: exception Window
+        }
+    }
+
+    public void saveAction(ActionEvent actionEvent) {
+        if(currentFile == null){
+            saveAsAction();
+        }
+        else{
+            try {
+                controller.saveData(currentFile);
+            } catch (IOException e) {
+                e.printStackTrace(); //toDo: exception Window
+            }
+        }
+    }
+
+    public void LoadAction(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(new Stage());
+        try {
+            controller.loadData(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -207,7 +233,7 @@ public class TrackViewController implements Initializable, EventListener {
 
 
     @Override
-    public void update(Event event, String id) {
+    public void update() {
         trackListTable.getItems().removeAll(trackListTable.getItems());
         trackListTable.getItems().addAll(model.getAllTracks());
     }
