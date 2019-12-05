@@ -1,12 +1,8 @@
-import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import model.TrackModel;
-import view.TrackViewController;
 
 public class Main extends Application{
 
@@ -36,6 +32,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+       /*
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("view/TrackList.fxml").openStream());
         TrackViewController trackViewController = (TrackViewController) fxmlLoader.getController();
@@ -46,7 +43,13 @@ public class Main extends Application{
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         TextFieldTableCell.forTableColumn();
+        */
 
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("view/Root.fxml"));
+     
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
 
 
     }
