@@ -4,6 +4,8 @@ import data.TrackDataObject;
 import model.GenreModel;
 import model.TrackModel;
 
+import java.io.*;
+
 public class Controller {
     private TrackModel trackModel;
     private GenreModel genreModel;
@@ -24,8 +26,10 @@ public class Controller {
         trackModel.setTitleTrack(track.getId(), newTitle);
     }
 
-    public void saveData(){
-
+    public void saveData(File file) throws IOException {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+            SaveLoadService.getInstance().save(out, (Serializable) trackModel.getAllTracks());
+        }
     }
 
 

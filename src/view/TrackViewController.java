@@ -10,11 +10,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Event;
 import model.TrackModel;
 import javafx.fxml.Initializable;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +130,13 @@ public class TrackViewController implements Initializable, EventListener {
 
     public void saveAsAction() {
         System.out.println("save!");
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showSaveDialog(new Stage());
+        try {
+            controller.saveData(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 /*
