@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TrackViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TrackViewController">
    <children>
       <TableView layoutX="2.0" layoutY="35.0" prefHeight="370.0" prefWidth="855.0">
         <columns>
@@ -24,7 +24,8 @@
       <TextField fx:id="performerField" layoutX="211.0" layoutY="406.0" prefHeight="25.0" prefWidth="93.0" promptText="Автор" />
       <TextField fx:id="genreField" layoutX="312.0" layoutY="406.0" prefHeight="25.0" prefWidth="105.0" promptText="Жанр" />
       <TextField fx:id="albumField" layoutX="425.0" layoutY="406.0" prefHeight="25.0" prefWidth="105.0" promptText="Альбом" />
-      <Button layoutX="541.0" layoutY="406.0" mnemonicParsing="false" onAction="#addNewTrackAction" prefHeight="25.0" prefWidth="118.0" text="Добавить трек" />
-      <Button layoutX="669.0" layoutY="406.0" mnemonicParsing="false" onAction="#deleteTrackAction" prefHeight="25.0" prefWidth="118.0" text="Удалить трек" />
+      <Button layoutX="540.0" layoutY="406.0" mnemonicParsing="false" onAction="#addNewTrackAction" prefHeight="25.0" prefWidth="105.0" text="Добавить трек" />
+      <Button layoutX="656.0" layoutY="406.0" mnemonicParsing="false" onAction="#deleteTrackAction" prefHeight="25.0" prefWidth="105.0" text="Удалить трек" />
+      <Button fx:id="changeButton" disable="true" layoutX="771.0" layoutY="406.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Изменить" />
    </children>
 </AnchorPane>
