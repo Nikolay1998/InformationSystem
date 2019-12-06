@@ -40,4 +40,8 @@ public class Controller {
             trackModel.addToArrTrack(list);
         }
     }
+
+    public void changeTrack(String id,TrackDataObject changedTrack){
+        trackModel.changeTrack(id,changedTrack);
+    }
 }

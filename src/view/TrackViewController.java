@@ -1,15 +1,18 @@
 package view;
 
 import controller.Controller;
+import data.Genre;
 import data.TrackDataObject;
 import data.TrackDataObjects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -51,6 +54,9 @@ public class TrackViewController implements Initializable, EventListener {
     private TextField albumField;
     @FXML
     private TextField searchField;
+    @FXML
+    public Button changeButton;
+
 
     private Controller controller;
 
@@ -141,10 +147,9 @@ public class TrackViewController implements Initializable, EventListener {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        if(currentFile == null){
+        if (currentFile == null) {
             saveAsAction();
-        }
-        else{
+        } else {
             try {
                 controller.saveData(currentFile);
             } catch (IOException e) {
@@ -190,21 +195,11 @@ public class TrackViewController implements Initializable, EventListener {
 
  */
 
-    public void deleteTrack(TrackDataObject track) {
-
-    }
 
     public void changeTrack(TrackDataObject track) {
 
     }
 
-    public void browsingTrack() {
-
-    }
-
-    public void updateModel() {
-
-    }
 
     public void addNewTrackAction(ActionEvent actionEvent) {
         //достаём значения которые вбил пользователь:
@@ -216,12 +211,31 @@ public class TrackViewController implements Initializable, EventListener {
 
         controller.addTrack(null, title, performer, album, genre, Integer.valueOf(duration));
 
+        changeButton.setDisable(true);
+
     }
 
     public void deleteTrackAction(ActionEvent actionEvent) {
         int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
         TrackDataObject track = trackListTable.getItems().get(selectedIndex);
         controller.removeTrack(track.getId());
+        changeButton.setDisable(true);
+    }
+
+    public void changeTrackAction(ActionEvent actionEvent) {
+        int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
+        TrackDataObject track = trackListTable.getItems().get(selectedIndex);
+
+        String title = trackLabelField.getText();
+        String performer = performerField.getText();
+        String album = albumField.getText();
+        Genre genre = new Genre(genreField.getText());
+        Integer duration = new Integer(durationField.getText());
+
+        TrackDataObject changedTrack = new TrackDataObject(null,title,performer,album,genre,duration);
+        controller.changeTrack(track.getId(),changedTrack);
+
+        changeButton.setDisable(true);
     }
 
     public void updateTrackTitle(TableColumn.CellEditEvent<TrackDataObject, String> trackStringCellEditEvent) {
@@ -229,6 +243,18 @@ public class TrackViewController implements Initializable, EventListener {
         TrackDataObject track = trackStringCellEditEvent.getRowValue();
         controller.updateTrackTitle(track, trackStringCellEditEvent.getNewValue());
         System.out.println(track.getTitle());
+    }
+
+    //при выделении строки в таблице
+    public void onLineClicked(MouseEvent mouseEvent) {
+        int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
+        TrackDataObject track = trackListTable.getItems().get(selectedIndex);
+        trackLabelField.setText(track.getTitle());
+        durationField.setText(String.valueOf(track.getDuration()));
+        performerField.setText(track.getPerformer());
+        genreField.setText(String.valueOf(track.getGenre()));
+        albumField.setText(track.getAlbum());
+        changeButton.setDisable(false);
     }
 
 
@@ -262,5 +288,7 @@ public class TrackViewController implements Initializable, EventListener {
         }
         trackListTable.getItems().removeAll(trackListTable.getItems());
         trackListTable.getItems().addAll(filteredValue);
+
+        changeButton.setDisable(true);
     }
 }

@@ -59,6 +59,10 @@ public class TrackDataObject implements Serializable {
         this.duration = duration;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public boolean equals(Object object) {
         if (object == null) return false;
         if (!(object instanceof TrackDataObject)) return false;

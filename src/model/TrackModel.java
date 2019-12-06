@@ -45,7 +45,7 @@ public class TrackModel implements Observable {
                     break;
                 }
             }
-            if(!isDuplicate){
+            if (!isDuplicate) {
                 arrTrack.add(addedTrack);
             }
 
@@ -75,6 +75,20 @@ public class TrackModel implements Observable {
                 break;
             }
         }
+    }
+
+    public void changeTrack(String id, TrackDataObject newTrack) {
+        newTrack.setId(UUID.randomUUID().toString());
+        for (int i = 0; i < arrTrack.size(); i++) {
+            if (arrTrack.get(i).getId().equals(id)) {
+                this.arrTrack.set(i,newTrack);
+                for (EventListener listener : listeners) {
+                    listener.update();
+                }
+                break;
+            }
+        }
+
     }
 
     public void setTitleTrack(String id, String newTitleTrack) {
