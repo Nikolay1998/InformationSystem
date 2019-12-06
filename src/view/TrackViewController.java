@@ -64,6 +64,7 @@ public class TrackViewController implements Initializable, EventListener {
 
     private File currentFile;
 
+    private int tabId = -9;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         trackColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
@@ -290,5 +291,10 @@ public class TrackViewController implements Initializable, EventListener {
         trackListTable.getItems().addAll(filteredValue);
 
         changeButton.setDisable(true);
+    }
+    public void initTab(int currentTabId) {
+        System.out.println(">TabController::initTab() with currentTabId=" + currentTabId);
+        this.tabId = currentTabId;
+
     }
 }
