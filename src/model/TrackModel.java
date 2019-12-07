@@ -1,11 +1,9 @@
 package model;
 
-import data.Genre;
+import data.GenreDataObject;
 import data.TrackDataObject;
 import view.EventListener;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +22,7 @@ public class TrackModel implements Observable {
 
     public void addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
         id = UUID.randomUUID().toString();
-        TrackDataObject newTrack = new TrackDataObject(id, title, performer, album, new Genre(genreTitle), duration);
+        TrackDataObject newTrack = new TrackDataObject(id, title, performer, album, new GenreDataObject(genreTitle), duration);
         for (TrackDataObject track : arrTrack) {
             if (track.equals(newTrack))
                 throw new IllegalArgumentException("This track already exists");

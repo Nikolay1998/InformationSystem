@@ -1,7 +1,7 @@
 package view;
 
 import controller.Controller;
-import data.Genre;
+import data.GenreDataObject;
 import data.TrackDataObject;
 import data.TrackDataObjects;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.Event;
 import model.TrackModel;
 import javafx.fxml.Initializable;
 
@@ -230,7 +229,7 @@ public class TrackViewController implements Initializable, EventListener {
         String title = trackLabelField.getText();
         String performer = performerField.getText();
         String album = albumField.getText();
-        Genre genre = new Genre(genreField.getText());
+        GenreDataObject genre = new GenreDataObject(genreField.getText());
         Integer duration = new Integer(durationField.getText());
 
         TrackDataObject changedTrack = new TrackDataObject(null,title,performer,album,genre,duration);
@@ -289,12 +288,10 @@ public class TrackViewController implements Initializable, EventListener {
         }
         trackListTable.getItems().removeAll(trackListTable.getItems());
         trackListTable.getItems().addAll(filteredValue);
-
         changeButton.setDisable(true);
     }
     public void initTab(int currentTabId) {
         System.out.println(">TabController::initTab() with currentTabId=" + currentTabId);
         this.tabId = currentTabId;
-
     }
 }

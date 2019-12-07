@@ -1,8 +1,16 @@
+import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import model.GenreModel;
+import model.TrackModel;
+import view.GenreViewController;
+import view.TrackViewController;
+
+import javax.sound.midi.Track;
 
 public class Main extends Application{
 
@@ -32,7 +40,8 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-       /*
+
+        /*
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("view/TrackList.fxml").openStream());
         TrackViewController trackViewController = (TrackViewController) fxmlLoader.getController();
@@ -43,12 +52,20 @@ public class Main extends Application{
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         TextFieldTableCell.forTableColumn();
-        */
 
+         */
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("view/Root.fxml"));
+        Parent root = fxmlLoader.load(getClass().getResource("view/GenreList.fxml").openStream());
+        GenreViewController trackViewController = (GenreViewController) fxmlLoader.getController();
+        GenreModel genreModel = new GenreModel();
+        TrackModel trackModel = new TrackModel();
+        trackViewController.setModel(genreModel);
+        trackViewController.setController(new Controller(trackModel, genreModel));
+        primaryStage.setTitle("Music System");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        
+
 
     }
 }

@@ -7,10 +7,10 @@ public class TrackDataObject implements Serializable {
     private String title;
     private String performer;
     private String album;
-    private Genre genre;
+    private GenreDataObject genre;
     private Integer duration;
 
-    public TrackDataObject(String id, String title, String performer, String album, Genre genre, Integer duration) {
+    public TrackDataObject(String id, String title, String performer, String album, GenreDataObject genre, Integer duration) {
         this.id = id;
         this.title = title;
         this.performer = performer;
@@ -23,7 +23,7 @@ public class TrackDataObject implements Serializable {
         return id;
     }
 
-    public Genre getGenre() {
+    public GenreDataObject getGenre() {
         return genre;
     }
 
@@ -43,7 +43,7 @@ public class TrackDataObject implements Serializable {
         this.album = album;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(GenreDataObject genre) {
         this.genre = genre;
     }
 
