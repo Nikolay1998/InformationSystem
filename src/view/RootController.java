@@ -1,10 +1,9 @@
 package view;
 
 import controller.Controller;
-import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import model.TrackModel;
 
@@ -16,6 +15,8 @@ public class RootController implements Initializable {
     @FXML
     private TrackViewController trackViewController;
     @FXML
+    private GenreViewController genreViewController;
+    @FXML
     private TabPane TabPane;
 
     private Controller controller;
@@ -24,14 +25,16 @@ public class RootController implements Initializable {
 
     private File currentFile;
 
-    public void myInit() {
+   /* public void myInit() {
         TabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable,
                                                                         Tab oldValue, Tab newValue)->{
             preparationInitTab(newValue);
         });
     }
 
-    public void preparationInitTab(Tab selectedTab) {
+    */
+
+    /*public void preparationInitTab(Tab selectedTab) {
         String currentTabId_string = selectedTab.getId();
         String[] parts = currentTabId_string.split("_");
         int currentTabId = Integer.parseInt(parts[1]);
@@ -45,8 +48,27 @@ public class RootController implements Initializable {
         }
     }
 
+     */
+
+    public TrackViewController getTrackViewController() {
+        return trackViewController;
+    }
+
+    public GenreViewController getGenreViewController() {
+        return genreViewController;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public void LoadAction(ActionEvent actionEvent) {
+    }
+
+    public void saveAction(ActionEvent actionEvent) {
+    }
+
+    public void saveAsAction(ActionEvent actionEvent) {
     }
 }
