@@ -170,32 +170,6 @@ public class TrackViewController implements Initializable, EventListener {
         }
     }
 
-/*
-    public void saveData() {
-        ArrayList<TrackDataObject> tracks = (ArrayList<TrackDataObject>)adapter.getAllTracks();
-        ArrayList<Genre> genres = (ArrayList<Genre>) adapter.getAllGenres();
-        try {
-            FileWriter fileWriter = new FileWriter("Data.txt");
-            fileWriter.write(tracks.size());
-            TrackDataObject track;
-            for (TrackDataObject value : tracks) {
-                track = value;
-                fileWriter.write(" " + track.getTitle() + " " + track.getPerformer() + " " + track.getAlbum() + " " + track.getGenre().getTitle());
-            }
-            Genre genre;
-            fileWriter.write(genres.size());
-            for (Genre value : genres) {
-                genre = value;
-                fileWriter.write(" " + genre.getTitle());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
- */
-
-
     public void changeTrack(TrackDataObject track) {
 
     }
@@ -290,6 +264,7 @@ public class TrackViewController implements Initializable, EventListener {
         trackListTable.getItems().addAll(filteredValue);
         changeButton.setDisable(true);
     }
+
     public void initTab(int currentTabId) {
         System.out.println(">TabController::initTab() with currentTabId=" + currentTabId);
         this.tabId = currentTabId;
