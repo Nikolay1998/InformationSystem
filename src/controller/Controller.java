@@ -6,6 +6,7 @@ import model.GenreModel;
 import model.TrackModel;
 
 import java.io.*;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,11 +52,13 @@ public class Controller {
     public void loadData(File file) {
         List<TrackDataObject> addedTracks = SaveLoadService.getInstance().load(file);
         trackModel.addToArrTrack(addedTracks);
-        List<GenreDataObject> addedGenres = new LinkedList<>();
+        //List<GenreDataObject> addedGenres = new LinkedList<>();
+        HashSet<GenreDataObject> addedGenres = new HashSet<>();
         for (TrackDataObject trackDataObject : addedTracks) {
             addedGenres.add(trackDataObject.getGenre());
+            //addedGenres.add(trackDataObject.getGenre());
         }
-        genreModel.addToArrGenre(addedGenres);
+        genreModel.addToArrGenre(new LinkedList<>(addedGenres));
     }
 
     public void changeTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
