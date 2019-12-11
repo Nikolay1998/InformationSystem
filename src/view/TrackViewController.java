@@ -153,11 +153,13 @@ public class TrackViewController implements Initializable {
         String title = trackLabelField.getText();
         String performer = performerField.getText();
         String album = albumField.getText();
-        GenreDataObject genre = new GenreDataObject(genreField.getText());
+        String gerneTitle = genreField.getText();
+        //GenreDataObject genre = new GenreDataObject(genreField.getText());
+
         Integer duration = new Integer(durationField.getText());
 
-        TrackDataObject changedTrack = new TrackDataObject(null, title, performer, album, genre, duration);
-        controller.changeTrack(track.getId(), changedTrack);
+        //TrackDataObject changedTrack = new TrackDataObject(null, title, performer, album, genre, duration);
+        controller.changeTrack(track.getId(), title, performer, album, gerneTitle, duration);
 
         changeButton.setDisable(true);
     }

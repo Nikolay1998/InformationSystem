@@ -80,19 +80,19 @@ public class TrackModel implements Observable {
         }
     }
 
-    public void changeTrack(String id, TrackDataObject newTrack) {
-        //newTrack.setId(UUID.randomUUID().toString());
-        for (int i = 0; i < arrTrack.size(); i++) {
-            if (arrTrack.get(i).getId().equals(id)) {
-                newTrack.setId(id);
-                this.arrTrack.set(i, newTrack);
-                for (EventListener listener : listeners) {
-                    listener.update();
-                }
-                break;
+    public void changeTrack(String id, String title, String performer, String album, GenreDataObject genre, Integer duration) {
+        for (TrackDataObject trackDataObject : arrTrack) {
+            if(trackDataObject.getId().equals(id)){
+                trackDataObject.setTitle(title);
+                trackDataObject.setPerformer(performer);
+                trackDataObject.setAlbum(album);
+                trackDataObject.setGenre(genre);
+                trackDataObject.setDuration(duration);
             }
         }
-
+        for (EventListener listener : listeners) {
+            listener.update();
+        }
     }
 
     public void setTitleTrack(String id, String newTitleTrack) {

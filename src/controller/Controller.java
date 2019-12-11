@@ -58,8 +58,9 @@ public class Controller {
         genreModel.addToArrGenre(addedGenres);
     }
 
-    public void changeTrack(String id, TrackDataObject changedTrack) {
-        trackModel.changeTrack(id, changedTrack);
+    public void changeTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
+        GenreDataObject genre = genreModel.addGenre(genreTitle);
+        trackModel.changeTrack(id, title, performer, album, genre, duration);
     }
 
     public void changeGenre(String id, String changetTitle) {

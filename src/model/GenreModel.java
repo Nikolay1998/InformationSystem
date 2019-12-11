@@ -63,14 +63,8 @@ public class GenreModel implements Observable {
                 genreDataObject.setTitle(newGenreTitle);
             }
         }
-        for (int i = 0; i < arrGenre.size(); i++) {
-            if (arrGenre.get(i).getId().equals(id)) {
-
-                for (EventListener listener : listeners) {
-                    listener.update();
-                }
-                break;
-            }
+        for (EventListener listener : listeners) {
+            listener.update();
         }
     }
 
