@@ -20,6 +20,6 @@
       <TextField fx:id="addGenreFd" layoutX="244.0" layoutY="14.0" promptText="Жанр" />
       <Button layoutX="404.0" layoutY="14.0" mnemonicParsing="false" onAction="#AddGenreAction" text="Добавить жанр" />
       <Button layoutX="267.0" layoutY="76.0" mnemonicParsing="false" onAction="#deleteGenre" text="Удалить" />
-      <Button fx:id="changeButton" layoutX="267.0" layoutY="117.0" mnemonicParsing="false" onAction="#changeTrackAction" text="Изменить" />
+      <Button fx:id="changeButton" layoutX="267.0" layoutY="117.0" mnemonicParsing="false" onAction="#changeGenreAction" text="Изменить" />
    </children>
 </AnchorPane>

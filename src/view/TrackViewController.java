@@ -8,10 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,7 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
-public class TrackViewController implements Initializable, EventListener {
+public class TrackViewController implements Initializable {
 
     @FXML
     private TableView<TrackDataObject> trackListTable;
@@ -61,9 +58,6 @@ public class TrackViewController implements Initializable, EventListener {
 
     private TrackModel model;
 
-    private File currentFile;
-
-    private int tabId = -9;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         trackColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TrackDataObject, String>, ObservableValue<String>>() {
@@ -123,57 +117,13 @@ public class TrackViewController implements Initializable, EventListener {
 
     public void setModel(TrackModel model) {
         this.model = model;
-        model.subscribe(this);
+        //model.subscribe(this);
     }
 
     public void setController(Controller controller) {
         this.controller = controller;
         trackListTable.getItems().addAll(model.getAllTracks());
     }
-
-
-    public void loadData() {
-
-    }
-
-    public void saveAsAction() {
-        FileChooser fileChooser = new FileChooser();
-        currentFile = fileChooser.showSaveDialog(new Stage());
-        try {
-            controller.saveData(currentFile);
-        } catch (IOException e) {
-            e.printStackTrace(); //toDo: exception Window
-        }
-    }
-
-    public void saveAction(ActionEvent actionEvent) {
-        if (currentFile == null) {
-            saveAsAction();
-        } else {
-            try {
-                controller.saveData(currentFile);
-            } catch (IOException e) {
-                e.printStackTrace(); //toDo: exception Window
-            }
-        }
-    }
-
-    public void LoadAction(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(new Stage());
-        try {
-            controller.loadData(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void changeTrack(TrackDataObject track) {
-
-    }
-
 
     public void addNewTrackAction(ActionEvent actionEvent) {
         //достаём значения которые вбил пользователь:
@@ -206,8 +156,8 @@ public class TrackViewController implements Initializable, EventListener {
         GenreDataObject genre = new GenreDataObject(genreField.getText());
         Integer duration = new Integer(durationField.getText());
 
-        TrackDataObject changedTrack = new TrackDataObject(null,title,performer,album,genre,duration);
-        controller.changeTrack(track.getId(),changedTrack);
+        TrackDataObject changedTrack = new TrackDataObject(null, title, performer, album, genre, duration);
+        controller.changeTrack(track.getId(), changedTrack);
 
         changeButton.setDisable(true);
     }
@@ -232,7 +182,6 @@ public class TrackViewController implements Initializable, EventListener {
     }
 
 
-    @Override
     public void update() {
         trackListTable.getItems().removeAll(trackListTable.getItems());
         trackListTable.getItems().addAll(model.getAllTracks());
@@ -264,9 +213,12 @@ public class TrackViewController implements Initializable, EventListener {
         trackListTable.getItems().addAll(filteredValue);
         changeButton.setDisable(true);
     }
+    /*
 
     public void initTab(int currentTabId) {
         System.out.println(">TabController::initTab() with currentTabId=" + currentTabId);
         this.tabId = currentTabId;
     }
+
+     */
 }

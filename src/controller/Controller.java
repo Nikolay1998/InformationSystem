@@ -6,6 +6,7 @@ import model.GenreModel;
 import model.TrackModel;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Controller {
@@ -17,45 +18,51 @@ public class Controller {
         this.genreModel = genreModel;
     }
 
-    public void addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration){
-        trackModel.addTrack(id, title, performer, album, genreTitle, duration);
+    public void addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
+        GenreDataObject genre = genreModel.addGenre(genreTitle);
+        trackModel.addTrack(id, title, performer, album, genre, duration);
     }
-    public void addGenre(String id, String Genre)
-    {
-        genreModel.addGenre(id, Genre);
+
+    public void addGenre(String Genre) {
+        genreModel.addGenre(Genre);
     }
 
     public void removeTrack(String id) {
         trackModel.removeTrack(id);
     }
 
-    public void removeGenre(String id) { genreModel.removeGenre(id);}
+    public void removeGenre(String id) {
+        trackModel.removeTrackByGenreId(id);
+        genreModel.removeGenre(id);
+    }
 
     public void updateTrackTitle(TrackDataObject track, String newTitle) {
         trackModel.setTitleTrack(track.getId(), newTitle);
     }
-    public void updateGenre(GenreDataObject genre, String newGenre)
-    {
+
+    public void updateGenre(GenreDataObject genre, String newGenre) {
         genreModel.setGenre(genre.getId(), newGenre);
     }
 
-    public void saveData(File file) throws IOException {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-            SaveLoadService.getInstance().save(out, (Serializable) trackModel.getAllTracks());
-        }
-    }
-    public void loadData(File file) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-            List<TrackDataObject> list = SaveLoadService.getInstance().load(in);
-            trackModel.addToArrTrack(list);
-        }
+    public void saveData(File file) {
+        SaveLoadService.getInstance().save(file, trackModel.getAllTracks());
     }
 
-    public void changeTrack(String id,TrackDataObject changedTrack){
-        trackModel.changeTrack(id,changedTrack);
+    public void loadData(File file) {
+        List<TrackDataObject> addedTracks = SaveLoadService.getInstance().load(file);
+        trackModel.addToArrTrack(addedTracks);
+        List<GenreDataObject> addedGenres = new LinkedList<>();
+        for (TrackDataObject trackDataObject : addedTracks) {
+            addedGenres.add(trackDataObject.getGenre());
+        }
+        genreModel.addToArrGenre(addedGenres);
     }
-    public void changeGenre(String id, GenreDataObject changedGenre)
-    {
-        genreModel.changeGenre(id, changedGenre);
+
+    public void changeTrack(String id, TrackDataObject changedTrack) {
+        trackModel.changeTrack(id, changedTrack);
+    }
+
+    public void changeGenre(String id, String changetTitle) {
+        genreModel.changeGenre(id, changetTitle);
     }
 }

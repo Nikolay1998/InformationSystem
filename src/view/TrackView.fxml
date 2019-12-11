@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ComboBox?>
 <VBox prefHeight="456.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="view.TrackViewController">
     <children>
@@ -25,7 +26,7 @@
                         <TextField fx:id="trackLabelField" promptText="Имя трека" />
                         <TextField fx:id="durationField" minWidth="52.0" prefHeight="25.0" promptText="Длительность" />
                         <TextField fx:id="performerField" promptText="Автор" />
-                        <TextField fx:id="genreField" promptText="Жанр" />
+                        <TextField fx:id="genreField" promptText="Жанр"/>
                         <TextField fx:id="albumField" promptText="Альбом" />
                         <Button mnemonicParsing="false" onAction="#addNewTrackAction" text="Добавить трек" />
                         <Button mnemonicParsing="false" onAction="#deleteTrackAction" text="Удалить" />

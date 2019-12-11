@@ -31,9 +31,12 @@ public class Main extends Application {
         GenreViewController genreViewController = rootController.getGenreViewController();
         TrackModel trackModel = new TrackModel();
         GenreModel genreModel = new GenreModel();
+        rootController.setTrackModel(trackModel);
+        rootController.setGenreModel(genreModel);
         trackViewController.setModel(trackModel);
         genreViewController.setModel(genreModel);
         Controller controller = new Controller(trackModel, genreModel);
+        rootController.setController(controller);
         trackViewController.setController(controller);
         genreViewController.setController(controller);
         primaryStage.setTitle("Music System");

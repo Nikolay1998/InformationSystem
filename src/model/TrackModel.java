@@ -20,9 +20,9 @@ public class TrackModel implements Observable {
         return arrTrack;
     }
 
-    public void addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
+    public void addTrack(String id, String title, String performer, String album, GenreDataObject genre, Integer duration) {
         id = UUID.randomUUID().toString();
-        TrackDataObject newTrack = new TrackDataObject(id, title, performer, album, new GenreDataObject(genreTitle), duration);
+        TrackDataObject newTrack = new TrackDataObject(id, title, performer, album, genre, duration);
         for (TrackDataObject track : arrTrack) {
             if (track.equals(newTrack))
                 throw new IllegalArgumentException("This track already exists");
@@ -34,8 +34,11 @@ public class TrackModel implements Observable {
     }
 
     public void addToArrTrack(List<TrackDataObject> addedArrTrack) {
-        List<TrackDataObject> storageTracks = getAllTracks();
-        for (TrackDataObject addedTrack : addedArrTrack) {
+        if (!arrTrack.isEmpty()) {
+            addedArrTrack.removeAll(arrTrack);
+        }
+        arrTrack.addAll(addedArrTrack);
+        /*for (TrackDataObject addedTrack : addedArrTrack) {
             boolean isDuplicate = false;
             for (TrackDataObject trackInStorage : storageTracks) {
                 if (addedTrack.getId().equals(trackInStorage.getId())) {
@@ -48,6 +51,8 @@ public class TrackModel implements Observable {
             }
 
         }
+
+         */
         for (EventListener listener : listeners) {
             listener.update();
         }
@@ -76,10 +81,11 @@ public class TrackModel implements Observable {
     }
 
     public void changeTrack(String id, TrackDataObject newTrack) {
-        newTrack.setId(UUID.randomUUID().toString());
+        //newTrack.setId(UUID.randomUUID().toString());
         for (int i = 0; i < arrTrack.size(); i++) {
             if (arrTrack.get(i).getId().equals(id)) {
-                this.arrTrack.set(i,newTrack);
+                newTrack.setId(id);
+                this.arrTrack.set(i, newTrack);
                 for (EventListener listener : listeners) {
                     listener.update();
                 }
@@ -132,5 +138,24 @@ public class TrackModel implements Observable {
     @Override
     public void unsubscribe(EventListener eventListener) {
         //listeners.
+    }
+
+    public void removeTrackByGenreId(String id) {
+        for (int i = 0; i < arrTrack.size(); i++) {
+            if (arrTrack.get(i).getGenre().getId().equals(id)) {
+                arrTrack.remove(i);
+            }
+        }
+        /*
+        for (TrackDataObject trackDataObject : arrTrack) {
+            if(trackDataObject.getGenre().getId().equals(id)){
+
+            }
+        }
+
+         */
+        for (EventListener listener : listeners) {
+            listener.update();
+        }
     }
 }

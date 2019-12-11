@@ -27,7 +27,7 @@ import javafx.util.Callback;
 import model.GenreModel;
 import javafx.event.ActionEvent;
 
-public class GenreViewController implements Initializable, EventListener {
+public class GenreViewController implements Initializable {
 
     @FXML
     private TextField SearchField;
@@ -46,8 +46,6 @@ public class GenreViewController implements Initializable, EventListener {
     private Controller controller;
 
     private GenreModel model;
-
-    private File currentFile;
 
     @FXML
     public void onLineClicked(MouseEvent event) {
@@ -73,7 +71,6 @@ public class GenreViewController implements Initializable, EventListener {
 
     public void setModel(GenreModel model) {
         this.model = model;
-        model.subscribe(this);
     }
 
     public void setController(Controller controller) {
@@ -83,10 +80,9 @@ public class GenreViewController implements Initializable, EventListener {
 
     @FXML
     void AddGenreAction(ActionEvent event) {
-   String genre = this.addGenreFd.getText();
-   controller.addGenre(null, genre);
-   this.changeButton.setDisable(true);
-
+        String genre = this.addGenreFd.getText();
+        controller.addGenre(genre);
+        this.changeButton.setDisable(true);
     }
 
     @FXML
@@ -101,6 +97,7 @@ public class GenreViewController implements Initializable, EventListener {
         controller.removeGenre(genre.getId());
         changeButton.setDisable(true);
     }
+
     @FXML
     void searchButton(ActionEvent event) {
         List<GenreDataObject> filteredValue = new ArrayList<>();
@@ -124,17 +121,18 @@ public class GenreViewController implements Initializable, EventListener {
         GenreTable.getItems().addAll(filteredValue);
         changeButton.setDisable(true);
     }
+
     @FXML
-    void changeTrackAction(ActionEvent event) {
+    void changeGenreAction(ActionEvent event) {
         int selectedIndex = GenreTable.getSelectionModel().getSelectedIndex();
         GenreDataObject genre = GenreTable.getItems().get(selectedIndex);
         String genreTitle = this.addGenreFd.getText();
-        GenreDataObject changedGenre = new GenreDataObject(genreTitle);
-        controller.changeGenre(genre.getId(), changedGenre);
+        //GenreDataObject changedGenre = new GenreDataObject(genreTitle);
+        controller.changeGenre(genre.getId(), genreTitle);
         changeButton.setDisable(true);
 
     }
-    @Override
+
     public void update() {
         GenreTable.getItems().removeAll(GenreTable.getItems());
         GenreTable.getItems().addAll(model.getAllGenres());
