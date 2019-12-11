@@ -59,6 +59,7 @@ public class Controller {
             //addedGenres.add(trackDataObject.getGenre());
         }
         genreModel.addToArrGenre(new LinkedList<>(addedGenres));
+
     }
 
     public void changeTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
