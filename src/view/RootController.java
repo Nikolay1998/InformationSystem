@@ -79,7 +79,9 @@ public class RootController implements Initializable, EventListener {
     public void saveAsAction() {
         FileChooser fileChooser = new FileChooser();
         currentFile = fileChooser.showSaveDialog(new Stage());
-        controller.saveData(currentFile);
+        if (currentFile != null) {
+            controller.saveData(currentFile);
+        }
         /*
         try {
         } catch (IOException e) {
@@ -107,8 +109,9 @@ public class RootController implements Initializable, EventListener {
     public void LoadAction(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(new Stage());
-
-        controller.loadData(file);
+        if (file!=null) {
+            controller.loadData(file);
+        }
         /*
         try {
         } catch (IOException e) {

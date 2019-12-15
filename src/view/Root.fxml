@@ -9,7 +9,7 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<VBox prefHeight="456.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+<VBox prefHeight="480.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="view.RootController">
     <children>
        <MenuBar prefHeight="19.0" prefWidth="820.0" VBox.vgrow="NEVER">

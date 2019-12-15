@@ -18,10 +18,7 @@ import java.util.function.Predicate;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import model.GenreModel;
@@ -50,9 +47,19 @@ public class GenreViewController implements Initializable {
     @FXML
     public void onLineClicked(MouseEvent event) {
         int selectedIndex = GenreTable.getSelectionModel().getSelectedIndex();
-        GenreDataObject genre = GenreTable.getItems().get(selectedIndex);
-        this.addGenreFd.setText(genre.getTitle());
-        changeButton.setDisable(false);
+        if (selectedIndex>=0) {
+            GenreDataObject genre = GenreTable.getItems().get(selectedIndex);
+            this.addGenreFd.setText(genre.getTitle());
+            changeButton.setDisable(false);
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Genre Selected");
+            alert.setContentText("Please select a genre in the table.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -93,9 +100,19 @@ public class GenreViewController implements Initializable {
     @FXML
     void deleteGenre(ActionEvent event) {
         int selectedIndex = this.GenreTable.getSelectionModel().getSelectedIndex();
-        GenreDataObject genre = GenreTable.getItems().get(selectedIndex);
-        controller.removeGenre(genre.getId());
-        changeButton.setDisable(true);
+        if (selectedIndex >= 0) {
+            GenreDataObject genre = GenreTable.getItems().get(selectedIndex);
+            controller.removeGenre(genre.getId());
+            changeButton.setDisable(true);
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No genre Selected");
+            alert.setContentText("Please select a genre in the table.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -117,9 +134,18 @@ public class GenreViewController implements Initializable {
                 filteredValue.add(genre);
             }
         }
-        GenreTable.getItems().removeAll(GenreTable.getItems());
-        GenreTable.getItems().addAll(filteredValue);
-        changeButton.setDisable(true);
+        if (!filteredValue.isEmpty()) {
+            GenreTable.getItems().removeAll(GenreTable.getItems());
+            GenreTable.getItems().addAll(filteredValue);
+            changeButton.setDisable(true);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Search error");
+            alert.setHeaderText("Search");
+            alert.setContentText("Genre not find");
+            alert.showAndWait();
+        }
     }
 
     @FXML

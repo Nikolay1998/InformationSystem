@@ -36,6 +36,8 @@ public class GenreDataObject implements Serializable{
         return title.equals(((GenreDataObject)object).title);
     }
 
+
+
     @Override
     public String toString() {
         return title;

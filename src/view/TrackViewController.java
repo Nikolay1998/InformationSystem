@@ -141,27 +141,37 @@ public class TrackViewController implements Initializable {
 
     public void deleteTrackAction(ActionEvent actionEvent) {
         int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
-        TrackDataObject track = trackListTable.getItems().get(selectedIndex);
-        controller.removeTrack(track.getId());
-        changeButton.setDisable(true);
+        if (selectedIndex >= 0) {
+
+            TrackDataObject track = trackListTable.getItems().get(selectedIndex);
+            controller.removeTrack(track.getId());
+            changeButton.setDisable(true);
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No track Selected");
+            alert.setContentText("Please select a track in the table.");
+            alert.showAndWait();
+        }
     }
 
     public void changeTrackAction(ActionEvent actionEvent) {
         int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
-        TrackDataObject track = trackListTable.getItems().get(selectedIndex);
 
-        String title = trackLabelField.getText();
-        String performer = performerField.getText();
-        String album = albumField.getText();
-        String gerneTitle = genreField.getText();
-        //GenreDataObject genre = new GenreDataObject(genreField.getText());
+            TrackDataObject track = trackListTable.getItems().get(selectedIndex);
+            String title = trackLabelField.getText();
+            String performer = performerField.getText();
+            String album = albumField.getText();
+            String gerneTitle = genreField.getText();
+            //GenreDataObject genre = new GenreDataObject(genreField.getText());
+            Integer duration = new Integer(durationField.getText());
+            //TrackDataObject changedTrack = new TrackDataObject(null, title, performer, album, genre, duration);
+            controller.changeTrack(track.getId(), title, performer, album, gerneTitle, duration);
+            changeButton.setDisable(true);
 
-        Integer duration = new Integer(durationField.getText());
 
-        //TrackDataObject changedTrack = new TrackDataObject(null, title, performer, album, genre, duration);
-        controller.changeTrack(track.getId(), title, performer, album, gerneTitle, duration);
-
-        changeButton.setDisable(true);
     }
 
     public void updateTrackTitle(TableColumn.CellEditEvent<TrackDataObject, String> trackStringCellEditEvent) {
@@ -174,13 +184,23 @@ public class TrackViewController implements Initializable {
     //при выделении строки в таблице
     public void onLineClicked(MouseEvent mouseEvent) {
         int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
-        TrackDataObject track = trackListTable.getItems().get(selectedIndex);
-        trackLabelField.setText(track.getTitle());
-        durationField.setText(String.valueOf(track.getDuration()));
-        performerField.setText(track.getPerformer());
-        genreField.setText(String.valueOf(track.getGenre()));
-        albumField.setText(track.getAlbum());
-        changeButton.setDisable(false);
+        if (selectedIndex >= 0) {
+            TrackDataObject track = trackListTable.getItems().get(selectedIndex);
+            trackLabelField.setText(track.getTitle());
+            durationField.setText(String.valueOf(track.getDuration()));
+            performerField.setText(track.getPerformer());
+            genreField.setText(String.valueOf(track.getGenre()));
+            albumField.setText(track.getAlbum());
+            changeButton.setDisable(false);
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No track Selected");
+            alert.setContentText("Please select a track in the table.");
+            alert.showAndWait();
+        }
     }
 
 
@@ -194,7 +214,6 @@ public class TrackViewController implements Initializable {
         List<TrackDataObject> filteredValue = new ArrayList<>();
         String searchString = searchField.getText();
         Predicate<TrackDataObject> trackDataObjectPredicate;
-
         if (searchString.endsWith("*") && searchString.startsWith("*")) {
             trackDataObjectPredicate = TrackDataObjects.containsPredicate(searchString.substring(1, searchString.length() - 1));
         } else if (searchString.endsWith("*")) {
@@ -211,9 +230,19 @@ public class TrackViewController implements Initializable {
                 filteredValue.add(track);
             }
         }
-        trackListTable.getItems().removeAll(trackListTable.getItems());
-        trackListTable.getItems().addAll(filteredValue);
-        changeButton.setDisable(true);
+        if (!filteredValue.isEmpty()) {
+            trackListTable.getItems().removeAll(trackListTable.getItems());
+            trackListTable.getItems().addAll(filteredValue);
+            changeButton.setDisable(true);
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Поиска");
+            alert.setHeaderText("Результат поиска:");
+            alert.setContentText("Такого трека нет в справочнике");
+            alert.showAndWait();
+        }
     }
     /*
 
