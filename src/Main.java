@@ -7,14 +7,15 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import model.GenreModel;
 import model.TrackModel;
+import net.Server;
 import view.GenreViewController;
 import view.RootController;
 import view.TrackViewController;
 
 public class Main extends Application {
 
-    //public final static int POP_ID = 0;
-    //public final static int ROCK_ID = 1;
+    private static final int PORT = 1025;
+    private static final String IP = "localhost";
 
 
     public static void main(String[] args) {
@@ -26,24 +27,31 @@ public class Main extends Application {
         FXMLLoader fxml = new FXMLLoader();
         fxml.setLocation(getClass().getResource("view/Root.fxml"));
         Parent root = fxml.load();
+
+        Server server = new Server(IP,PORT);
+        server.connect();
+
         RootController rootController = fxml.getController();
         TrackViewController trackViewController = rootController.getTrackViewController();
         GenreViewController genreViewController = rootController.getGenreViewController();
+
         TrackModel trackModel = new TrackModel();
         GenreModel genreModel = new GenreModel();
+
         rootController.setTrackModel(trackModel);
         rootController.setGenreModel(genreModel);
         trackViewController.setModel(trackModel);
         genreViewController.setModel(genreModel);
+
         Controller controller = new Controller(trackModel, genreModel);
         rootController.setController(controller);
         trackViewController.setController(controller);
         genreViewController.setController(controller);
+
         primaryStage.setTitle("Music System");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         TextFieldTableCell.forTableColumn();
-
 
     }
 }
