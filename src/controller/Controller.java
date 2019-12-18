@@ -4,6 +4,9 @@ import data.GenreDataObject;
 import data.TrackDataObject;
 import model.GenreModel;
 import model.TrackModel;
+import net.Server;
+import net.ServerCommands;
+import net.ServerMessage;
 
 import java.io.*;
 import java.util.HashSet;
@@ -13,10 +16,12 @@ import java.util.List;
 public class Controller {
     private TrackModel trackModel;
     private GenreModel genreModel;
+    private Server server;
 
-    public Controller(TrackModel trackModel, GenreModel genreModel) {
+    public Controller(TrackModel trackModel, GenreModel genreModel, Server server) {
         this.trackModel = trackModel;
         this.genreModel = genreModel;
+        this.server = server;
     }
 
     public void addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
@@ -25,6 +30,7 @@ public class Controller {
     }
 
     public void addGenre(String Genre) {
+        server.sendMessage(new ServerMessage(ServerCommands.ADD_GENRE, new GenreDataObject(Genre)));
         genreModel.addGenre(Genre);
     }
 

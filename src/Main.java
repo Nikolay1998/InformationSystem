@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import model.GenreModel;
 import model.TrackModel;
 import net.Server;
+import net.ServerCommands;
+import net.ServerMessage;
 import view.GenreViewController;
 import view.RootController;
 import view.TrackViewController;
@@ -28,8 +30,14 @@ public class Main extends Application {
         fxml.setLocation(getClass().getResource("view/Root.fxml"));
         Parent root = fxml.load();
 
-        Server server = new Server(IP,PORT);
+        Server server = new Server(IP, PORT);
         server.connect();
+        server.registerCallback(message -> {
+            switch (message.getCommand()) {
+                case ServerCommands.ADD_GENRE_SUCCESS:
+                    break;
+            }
+        });
 
         RootController rootController = fxml.getController();
         TrackViewController trackViewController = rootController.getTrackViewController();
@@ -43,7 +51,7 @@ public class Main extends Application {
         trackViewController.setModel(trackModel);
         genreViewController.setModel(genreModel);
 
-        Controller controller = new Controller(trackModel, genreModel);
+        Controller controller = new Controller(trackModel, genreModel, server);
         rootController.setController(controller);
         trackViewController.setController(controller);
         genreViewController.setController(controller);
