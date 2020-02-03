@@ -133,7 +133,7 @@ public class TrackViewController implements Initializable {
             loader.setLocation(AddDialog.class.getResource("/view/AddDialogView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
+            dialogStage.setTitle("Add Track");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(null);
             Scene scene = new Scene(page);
@@ -157,7 +157,7 @@ public class TrackViewController implements Initializable {
             loader.setLocation(EditDialogController.class.getResource("/view/EditDialogView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
+            dialogStage.setTitle("Edit Track");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(null);
             Scene scene = new Scene(page);
