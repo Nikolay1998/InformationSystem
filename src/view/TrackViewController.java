@@ -53,7 +53,8 @@ public class TrackViewController implements Initializable {
     private TextField searchField;
     @FXML
     public Button changeButton;
-
+    @FXML
+    private Button EditDialogButton;
 
     private Controller controller;
 
@@ -142,6 +143,7 @@ public class TrackViewController implements Initializable {
             controller.setDialogStage(dialogStage);
             controller.setController(this.controller);
             dialogStage.showAndWait();
+            EditDialogButton.setDisable(true);
         }
         catch (IOException e)
         {
@@ -169,6 +171,7 @@ public class TrackViewController implements Initializable {
             TrackDataObject track = trackListTable.getItems().get(selectedIndex);
             controller.setTrack(track);
             dialogStage.showAndWait();
+
         }
         catch (IOException e)
         {
@@ -187,7 +190,7 @@ public class TrackViewController implements Initializable {
 
         controller.addTrack(null, title, performer, album, genre, Integer.valueOf(duration));
 
-        changeButton.setDisable(true);
+        EditDialogButton.setDisable(true);
 
     }
 
@@ -197,7 +200,7 @@ public class TrackViewController implements Initializable {
 
             TrackDataObject track = trackListTable.getItems().get(selectedIndex);
             controller.removeTrack(track.getId());
-            changeButton.setDisable(true);
+            EditDialogButton.setDisable(true);
         }
         else
         {
@@ -243,7 +246,7 @@ public class TrackViewController implements Initializable {
             performerField.setText(track.getPerformer());
             genreField.setText(String.valueOf(track.getGenre()));
             albumField.setText(track.getAlbum());
-            changeButton.setDisable(false);
+            EditDialogButton.setDisable(false);
         }
         else
         {
@@ -285,7 +288,7 @@ public class TrackViewController implements Initializable {
         if (!filteredValue.isEmpty()) {
             trackListTable.getItems().removeAll(trackListTable.getItems());
             trackListTable.getItems().addAll(filteredValue);
-            changeButton.setDisable(true);
+            EditDialogButton.setDisable(true);
         }
         else
         {
