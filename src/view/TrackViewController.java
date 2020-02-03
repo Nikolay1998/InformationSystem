@@ -1,22 +1,23 @@
 package view;
 
 import controller.Controller;
-import data.GenreDataObject;
 import data.TrackDataObject;
 import data.TrackDataObjects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.TrackModel;
 import javafx.fxml.Initializable;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -124,7 +125,58 @@ public class TrackViewController implements Initializable {
         this.controller = controller;
         trackListTable.getItems().addAll(model.getAllTracks());
     }
+    @FXML
+    void AddDialog(ActionEvent event)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(AddDialog.class.getResource("/view/AddDialogView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Person");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(null);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            AddDialog controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setController(this.controller);
+            dialogStage.showAndWait();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
+    }
+    @FXML
+    void EditDialog(ActionEvent event)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(EditDialogController.class.getResource("/view/EditDialogView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Person");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(null);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            EditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setController(this.controller);
+            int selectedIndex = trackListTable.getSelectionModel().getSelectedIndex();
+            TrackDataObject track = trackListTable.getItems().get(selectedIndex);
+            controller.setTrack(track);
+            dialogStage.showAndWait();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
     public void addNewTrackAction(ActionEvent actionEvent) {
         //достаём значения которые вбил пользователь:
         String title = trackLabelField.getText();
