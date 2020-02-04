@@ -127,19 +127,19 @@ public class TrackViewController implements Initializable {
         trackListTable.getItems().addAll(model.getAllTracks());
     }
     @FXML
-    void AddDialog(ActionEvent event)
+    public void AddDialog(ActionEvent event)
     {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AddDialog.class.getResource("/view/AddDialogView.fxml"));
+            loader.setLocation(AddDialogController.class.getResource("/view/AddDialogView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Add Track");
+            dialogStage.setTitle("Добавление трека");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(null);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-            AddDialog controller = loader.getController();
+            AddDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setController(this.controller);
             dialogStage.showAndWait();
@@ -152,14 +152,14 @@ public class TrackViewController implements Initializable {
 
     }
     @FXML
-    void EditDialog(ActionEvent event)
+    public void EditDialog(ActionEvent event)
     {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(EditDialogController.class.getResource("/view/EditDialogView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Track");
+            dialogStage.setTitle("Изменение трека");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(null);
             Scene scene = new Scene(page);
