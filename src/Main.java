@@ -10,6 +10,7 @@ import model.TrackModel;
 import net.Server;
 import net.ServerCommands;
 import net.ServerMessage;
+import net.SocketW;
 import view.GenreViewController;
 import view.RootController;
 import view.TrackViewController;
@@ -30,7 +31,7 @@ public class Main extends Application {
         fxml.setLocation(getClass().getResource("view/Root.fxml"));
         Parent root = fxml.load();
 
-        Server server = new Server(IP, PORT);
+        /*Server server = new Server(IP, PORT);
         server.connect();
         server.registerCallback(message -> {
             switch (message.getCommand()) {
@@ -38,6 +39,9 @@ public class Main extends Application {
                     break;
             }
         });
+
+         */
+
 
         RootController rootController = fxml.getController();
         TrackViewController trackViewController = rootController.getTrackViewController();
@@ -51,10 +55,14 @@ public class Main extends Application {
         trackViewController.setModel(trackModel);
         genreViewController.setModel(genreModel);
 
-        Controller controller = new Controller(trackModel, genreModel, server);
+        SocketW socketW = new SocketW(IP, PORT);
+
+        Controller controller = new Controller(trackModel, genreModel, socketW);
         rootController.setController(controller);
         trackViewController.setController(controller);
         genreViewController.setController(controller);
+
+        socketW.connect();
 
         primaryStage.setTitle("Music System");
         primaryStage.setScene(new Scene(root));

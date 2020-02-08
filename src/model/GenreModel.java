@@ -77,7 +77,7 @@ public class GenreModel implements Observable {
         }
     }
 
-    public void addToArrGenre(List<GenreDataObject> addedArrGenres) {
+    public void updateGenreArr(List<GenreDataObject> addedArrGenres) {
 
         if (!arrGenre.isEmpty()) {
             addedArrGenres.removeAll(arrGenre);

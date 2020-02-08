@@ -2,36 +2,39 @@ package controller;
 
 import data.GenreDataObject;
 import data.TrackDataObject;
+import model.FullModel;
 import model.GenreModel;
 import model.TrackModel;
 import net.Server;
 import net.ServerCommands;
 import net.ServerMessage;
+import net.SocketW;
 
 import java.io.*;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Controller {
+public class Controller implements DataUpdateListener {
     private TrackModel trackModel;
     private GenreModel genreModel;
-    private Server server;
+    private SocketW socketW;
 
-    public Controller(TrackModel trackModel, GenreModel genreModel, Server server) {
+    public Controller(TrackModel trackModel, GenreModel genreModel, SocketW socketW) {
         this.trackModel = trackModel;
         this.genreModel = genreModel;
-        this.server = server;
+        this.socketW = socketW;
+        socketW.subscribe(this);
     }
 
     public void addTrack(String id, String title, String performer, String album, String genreTitle, Integer duration) {
-        GenreDataObject genre = genreModel.addGenre(genreTitle);
-        trackModel.addTrack(id, title, performer, album, genre, duration);
+        TrackDataObject trackDataObject = new TrackDataObject(id, title, performer, album, new GenreDataObject(genreTitle), duration);
+        socketW.addTrack(trackDataObject);
     }
 
     public void addGenre(String Genre) {
-        server.sendMessage(new ServerMessage(ServerCommands.ADD_GENRE, new GenreDataObject(Genre)));
-        genreModel.addGenre(Genre);
+        socketW.sendMessage(new ServerMessage(ServerCommands.ADD_GENRE, new GenreDataObject(Genre)));
+        //genreModel.addGenre(Genre);
     }
 
     public void removeTrack(String id) {
@@ -57,14 +60,14 @@ public class Controller {
 
     public void loadData(File file) {
         List<TrackDataObject> addedTracks = SaveLoadService.getInstance().load(file);
-        trackModel.addToArrTrack(addedTracks);
+        trackModel.updateTrackArr(addedTracks);
         //List<GenreDataObject> addedGenres = new LinkedList<>();
         HashSet<GenreDataObject> addedGenres = new HashSet<>();
         for (TrackDataObject trackDataObject : addedTracks) {
             addedGenres.add(trackDataObject.getGenre());
             //addedGenres.add(trackDataObject.getGenre());
         }
-        genreModel.addToArrGenre(new LinkedList<>(addedGenres));
+        genreModel.updateGenreArr(new LinkedList<>(addedGenres));
 
     }
 
@@ -76,4 +79,11 @@ public class Controller {
     public void changeGenre(String id, String changetTitle) {
         genreModel.changeGenre(id, changetTitle);
     }
+
+    @Override
+    public void update(FullModel model) {
+        trackModel.updateTrackArr(model.getTackListArr());
+        genreModel.updateGenreArr(model.getGenreListArr());
+    }
+
 }

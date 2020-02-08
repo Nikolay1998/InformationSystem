@@ -33,7 +33,7 @@ public class TrackModel implements Observable {
         }
     }
 
-    public void addToArrTrack(List<TrackDataObject> addedArrTrack) {
+    public void updateTrackArr(List<TrackDataObject> addedArrTrack) {
         if (!arrTrack.isEmpty()) {
             addedArrTrack.removeAll(arrTrack);
         }
