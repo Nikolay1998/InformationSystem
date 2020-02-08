@@ -62,6 +62,7 @@ public class TrackModel implements Observable {
         for (TrackDataObject track : arrTrack) {
             if (track.getId().equals(id)) {
                 return track;
+
             }
         }
         return null;
