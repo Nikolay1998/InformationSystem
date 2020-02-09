@@ -73,6 +73,7 @@ public class SocketW implements DataUpdateObservable {
     public void sendMessage(ServerMessage msg){
         try {
             out.writeObject(msg);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Can't send message to Server!");
@@ -83,14 +84,18 @@ public class SocketW implements DataUpdateObservable {
     private Runnable receiving = () -> {
         while (true) {
             try {
-                ServerMessage message = (ServerMessage) in.readObject();
-                switch (message.getCommand()) {
-                    case ServerCommands.CONNECT: {
+                LinkedList message = (LinkedList<TrackDataObject>) in.readObject();
+               // switch (message.getCommand()) {
+                 //   case ServerCommands.CONNECT: {
+                System.out.println("Receive data!");
+                System.out.println(message.size());
                         for(DataUpdateListener listener : listeners){
-                            listener.update((FullModel) message.getData());
-                            System.out.println("Receive data!");
-                        }
-                    }
+                            //listener.update((FullModel) message.getData());
+
+
+                            //System.out.println(((FullModel) message.getData()).getTackListArr().size());
+                   //     }
+                   // }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
