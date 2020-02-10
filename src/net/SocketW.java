@@ -84,18 +84,15 @@ public class SocketW implements DataUpdateObservable {
     private Runnable receiving = () -> {
         while (true) {
             try {
-                LinkedList message = (LinkedList<TrackDataObject>) in.readObject();
-               // switch (message.getCommand()) {
-                 //   case ServerCommands.CONNECT: {
-                System.out.println("Receive data!");
-                System.out.println(message.size());
+                ServerMessage message = (ServerMessage) in.readObject();
+                switch (message.getCommand()) {
+                    case ServerCommands.CONNECT: {
+                        System.out.println("Receive data!");
                         for(DataUpdateListener listener : listeners){
-                            //listener.update((FullModel) message.getData());
-
-
-                            //System.out.println(((FullModel) message.getData()).getTackListArr().size());
-                   //     }
-                   // }
+                            listener.update((FullModel) message.getData());
+                            System.out.println(((FullModel) message.getData()).getTackListArr().size());
+                        }
+                   }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
