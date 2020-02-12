@@ -55,15 +55,15 @@ public class SocketW implements DataUpdateObservable {
                         Thread.sleep(1000);
                         System.out.println("Loss connection with server");
                     } catch (InterruptedException ignored2) {
+                        ignored2.printStackTrace();
                     }
                 }
             }
-
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connection to Server successful!");
+            new Thread(receiver).start();
             sendMessage(new ServerMessage(ServerCommands.UPDATE_DATA, null));
-            new Thread(receiving).start();
         } catch (IOException e) {
             e.printStackTrace();
             disconnect();
@@ -83,7 +83,7 @@ public class SocketW implements DataUpdateObservable {
     }
 
 
-    private Runnable receiving = () -> {
+    private Runnable receiver = () -> {
         while (true) {
             try {
                 ServerMessage message = (ServerMessage) in.readObject();
