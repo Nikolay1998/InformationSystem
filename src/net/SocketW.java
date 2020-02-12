@@ -2,12 +2,8 @@ package net;
 
 import controller.DataUpdateListener;
 import data.TrackDataObject;
-import model.Event;
 import model.FullModel;
-import model.Observable;
-import view.EventListener;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -30,6 +26,11 @@ public class SocketW implements DataUpdateObservable {
 
     public void addTrack(TrackDataObject trackDataObject) {
         ServerMessage message = new ServerMessage(ServerCommands.ADD_TRACK, trackDataObject);
+        sendMessage(message);
+    }
+
+    public void removeTrack(String id) {
+        ServerMessage message = new ServerMessage(ServerCommands.DELETE_TRACK, id);
         sendMessage(message);
     }
 
@@ -61,6 +62,7 @@ public class SocketW implements DataUpdateObservable {
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connection to Server successful!");
+            sendMessage(new ServerMessage(ServerCommands.UPDATE_DATA, null));
             new Thread(receiving).start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,11 +88,12 @@ public class SocketW implements DataUpdateObservable {
             try {
                 ServerMessage message = (ServerMessage) in.readObject();
                 switch (message.getCommand()) {
-                    case ServerCommands.CONNECT: {
-                        System.out.println("Receive data!");
+                    case ServerCommands.UPDATE_DATA: {
+                        System.out.println("Received data: ");
+                        FullModel newModel = (FullModel) message.getData();
                         for(DataUpdateListener listener : listeners){
-                            listener.update((FullModel) message.getData());
-                            System.out.println(((FullModel) message.getData()).getTackListArr().size());
+                            System.out.println(newModel.getTackListArr().toString() + "\nStored data:");
+                            listener.update(newModel);
                         }
                    }
                 }
@@ -117,6 +120,7 @@ public class SocketW implements DataUpdateObservable {
         } catch (IOException ignored) {
         }
     }
+
 
 
 }

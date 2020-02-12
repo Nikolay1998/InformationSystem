@@ -34,16 +34,14 @@ public class Controller implements DataUpdateListener {
 
     public void addGenre(String Genre) {
         socketW.sendMessage(new ServerMessage(ServerCommands.ADD_GENRE, new GenreDataObject(Genre)));
-        //genreModel.addGenre(Genre);
     }
 
     public void removeTrack(String id) {
-        trackModel.removeTrack(id);
+        socketW.removeTrack(id);
     }
 
     public void removeGenre(String id) {
         trackModel.removeTrackByGenreId(id);
-        genreModel.removeGenre(id);
     }
 
     public void updateTrackTitle(TrackDataObject track, String newTitle) {
@@ -83,6 +81,7 @@ public class Controller implements DataUpdateListener {
     @Override
     public void update(FullModel model) {
         trackModel.updateTrackArr(model.getTackListArr());
+        System.out.println(trackModel.getAllTracks().toString());
         genreModel.updateGenreArr(model.getGenreListArr());
     }
 

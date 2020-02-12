@@ -77,29 +77,15 @@ public class GenreModel implements Observable {
         }
     }
 
-    public void updateGenreArr(List<GenreDataObject> addedArrGenres) {
-
-        if (!arrGenre.isEmpty()) {
-            addedArrGenres.removeAll(arrGenre);
-        }
-        arrGenre.addAll(addedArrGenres);
-        /*for (TrackDataObject addedTrack : addedArrTrack) {
-            boolean isDuplicate = false;
-            for (TrackDataObject trackInStorage : storageTracks) {
-                if (addedTrack.getId().equals(trackInStorage.getId())) {
-                    isDuplicate = true;
-                    break;
-                }
+    public void updateGenreArr(List<GenreDataObject> updatedList) {
+        if(!updatedList.isEmpty()) {
+            if (!arrGenre.isEmpty()) {
+                arrGenre.removeAll(arrGenre);
             }
-            if (!isDuplicate) {
-                arrTrack.add(addedTrack);
+            arrGenre.addAll(updatedList);
+            for (EventListener listener : listeners) {
+                listener.update();
             }
-
-        }
-
-         */
-        for (EventListener listener : listeners) {
-            listener.update();
         }
     }
 

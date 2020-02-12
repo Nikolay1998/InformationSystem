@@ -34,28 +34,15 @@ public class TrackModel implements Observable {
     }
 
     public void updateTrackArr(List<TrackDataObject> addedArrTrack) {
-        if (!arrTrack.isEmpty()) {
-            addedArrTrack.removeAll(arrTrack);
-        }
-        arrTrack.addAll(addedArrTrack);
-        /*for (TrackDataObject addedTrack : addedArrTrack) {
-            boolean isDuplicate = false;
-            for (TrackDataObject trackInStorage : storageTracks) {
-                if (addedTrack.getId().equals(trackInStorage.getId())) {
-                    isDuplicate = true;
-                    break;
-                }
+        //if(!addedArrTrack.isEmpty()) {
+            if (!arrTrack.isEmpty()) {
+                arrTrack.removeAll(arrTrack);
             }
-            if (!isDuplicate) {
-                arrTrack.add(addedTrack);
+            arrTrack.addAll(addedArrTrack);
+            for (EventListener listener : listeners) {
+                listener.update();
             }
-
-        }
-
-         */
-        for (EventListener listener : listeners) {
-            listener.update();
-        }
+        //}
     }
 
     public TrackDataObject getTrack(String id) {
