@@ -131,7 +131,7 @@ public class TrackViewController implements Initializable {
     {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AddDialogController.class.getResource("/view/AddDialogView.fxml"));
+            loader.setLocation(AddDialogController.class.getResource("/AddDialogView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Добавление трека");
@@ -156,7 +156,7 @@ public class TrackViewController implements Initializable {
     {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(EditDialogController.class.getResource("/view/EditDialogView.fxml"));
+            loader.setLocation(EditDialogController.class.getResource("/EditDialogView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Изменение трека");

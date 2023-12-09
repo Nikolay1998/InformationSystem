@@ -9,7 +9,6 @@ import model.GenreModel;
 import model.TrackModel;
 import net.Server;
 import net.ServerCommands;
-import net.ServerMessage;
 import net.SocketW;
 import view.GenreViewController;
 import view.RootController;
@@ -28,10 +27,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxml = new FXMLLoader();
-        fxml.setLocation(getClass().getResource("view/Root.fxml"));
+        fxml.setLocation(getClass().getClassLoader().getResource("Root.fxml"));
         Parent root = fxml.load();
 
-        /*Server server = new Server(IP, PORT);
+        Server server = new Server(IP, PORT);
         server.connect();
         server.registerCallback(message -> {
             switch (message.getCommand()) {
@@ -39,8 +38,6 @@ public class Main extends Application {
                     break;
             }
         });
-
-         */
 
 
         RootController rootController = fxml.getController();
